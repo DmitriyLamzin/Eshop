@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:beans="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+       <global-method-security secured-annotations="enabled" />
+
+       <beans:bean id="basicAuthenticationFilter"
+             class="org.springframework.security.web.authentication.www.BasicAuthenticationFilter">
+              <beans:constructor-arg name="authenticationManager" ref="authenticationManager"/>
+              <beans:constructor-arg name="authenticationEntryPoint" ref="authenticationEntryPoint"/>
+       </beans:bean>
+
+       <beans:bean id="authenticationEntryPoint"
+             class="org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint">
+              <beans:property name="realmName" value="realmName"/>
+       </beans:bean>
+
+
+       <http create-session="stateless" entry-point-ref="authenticationEntryPoint">
+           <intercept-url pattern="/rest/**" method="POST" access="hasRole('ROLE_ADMIN')"/>
+           <!--<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>-->
+           <anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
+           <http-basic />
+           <csrf disabled="true" />
+       </http>
+
+       <authentication-manager alias="authenticationManager">
+              <authentication-provider>
+                     <user-service>
+                            <user name="admin" password="pass" authorities="ROLE_ADMIN,ROLE_USER"/>
+                            <user name="user1" password="1111" authorities="ROLE_USER"/>
+                            <user name="user2" password="2222" disabled="true" authorities="ROLE_USER"/>
+                     </user-service>
+              </authentication-provider>
+       </authentication-manager>
+</beans:beans>
