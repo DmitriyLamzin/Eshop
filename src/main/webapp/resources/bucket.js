@@ -24,10 +24,11 @@ $(document).ready(function() {
                 type: "POST", // type of action POST || GET
                 data: JSON.stringify(bucket), // post data || get data
                 success: function(){
+                    $('#error_personEmail').empty();
                     alert('order was sent');
                 },
                 error: function (xhr, resp, text) {
-                    $('#error_email').empty();
+                    $('#error_personEmail').empty();
                     console.log(xhr);
                     var fieldErrorDTOs = xhr.responseJSON.fieldErrorDTOs;
                     $.each(fieldErrorDTOs, function(i, object){
