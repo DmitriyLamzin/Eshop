@@ -2,141 +2,166 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-    <title>admin page, limited access</title>
+    <title>admin page</title>
     <spring:url value="/resources/jquery.min.js" var="jqueryJs" />
     <spring:url value="/resources/app.js" var="appJs" />
+    <spring:url value="/resources/catalog.js" var="catalogJs" />
     <spring:url value="/resources/product.js" var="prodJs" />
+    <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCss" />
+    <spring:url value="/resources/css/main.css" var="mainCss" />
+
 
     <script type="text/javascript" src="${jqueryJs}" ></script>
     <script type="text/javascript" src="${appJs}" ></script>
+    <%--<script type="text/javascript" src="${catalogJs}" ></script>--%>
     <script type="text/javascript" src="${prodJs}" ></script>
+    <script type="text/javascript" src="${bucketJs}" ></script>
+    <link href="${bootstrapCss}" rel="stylesheet" />
+    <link href="${mainCss}" rel="stylesheet" />
 
 </head>
 <body>
-<p> Hello, Admin</p>
-    <ul id="navbar">
-        <li><a class="ajax" href="${pageContext.request.contextPath}/admin">Главная</a></li>
-        <li><a class="ajax" href="${pageContext.request.contextPath}/admin/category">Управление категориями</a></li>
-        <li><a class="ajax" href="${pageContext.request.contextPath}/admin/subcategory">Управление подкатегориями</a></li>
-        <li><a class="ajax" href="${pageContext.request.contextPath}/admin/products">Управление продуктами</a></li>
-    </ul>
-<div class="container" id="div0">
-
-    <div class="container" id="div1">
-        <h1>This is the product page</h1>
-
-        <button id="addProductButton">Добавить категорию</button>
-
-        <p><strong>Выберите категорию</strong></p>
-        <form>
-            <p>
-                <label>
-                    <select id="selectCategory">
-                    </select>
-                </label>
-            </p>
-        </form>
-
-        <p><strong>Выберите подкатегорию</strong></p>
-        <form>
-            <p>
-                <label>
-                    <select id="selectSubcategory">
-                    </select>
-                </label>
-            </p>
-        </form>
-
-        <p><strong>диапазон цен</strong></p>
-        <form>
-            <p>
-                <label>
-                    <input id="minPrice" type="number" value="0"> -
-                </label>
-                <label>
-                    <input id="maxPrice" type="number" value="100000">
-                </label>
-            </p>
-        </form>
-
-
-        <p><strong>Сортировать по</strong></p>
-        <form id="orderBy">
-            <label>
-                <input type="radio" name="radioName" value="producer" /> producer <br />
-                <input type="radio" name="radioName" value="price" /> price <br />
-                <input type="radio" name="radioName" value="id" checked/> id <br />
-            </label>
-        </form>
-
-        <p><strong>Кол-во на странице</strong></p>
-        <form id="pageSize">
-            <label>
-                <input type="radio" name="pageSize" value=5 /> 5 <br />
-                <input type="radio" name="pageSize" value=10 /> 10 <br />
-                <input type="radio" name="pageSize" value=20 checked/> 20 <br />
-            </label>
-        </form>
-
-        <p><strong>Страница</strong></p>
-        <form>
-            <label>
-                <input id="page" type="number" value="1">
-            </label>
-        </form>
-
-        <div id="productList">
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/admin" >eShop admin tool</a>
         </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul id="admin_tools" class="nav nav-sidebar">
+                <li>
+                    <a class="admin_tool" href="/admin/catalog">catalog sections manager</a>
+                </li>
+                <li>
+                    <a class="admin_tool" href="/admin/products">products manager  </a>
+                </li>
+                <li>
+                    <a class="admin_tool" href="/admin/order">orders manager</a>
 
-        <div class="container" id="productCreateContainer" hidden>
-            <form id="createSubCategory" action="" method="post">
-                <fieldset>
-                    <legend>Create Product:</legend>
-                    Category Id:<br>
-                    <label>
-                        <input disabled type="text" name="categoryId">
-                    </label>
-                    <div id="error_categoryId"></div>
-                    <br>
-                    Subcategory Id:<br>
-                    <label>
-                        <input disabled type="text" name="subcategoryId">
-                    </label>
-                    <%--<div id="error_name"></div>--%>
-                    <br>
-                    Product Id:<br>
-                    <label>
-                        <input type="text" name="id">
-                    </label>
-                    <%--<div id="error_name"></div>--%>
-                    <br>
+                </li>
+            </ul><br><br>
+            <div id="productFilter">
+                <p><strong>Выберите категорию</strong></p>
+                <form>
+                    <p>
+                        <label>
+                            <select id="selectCategory">
+                            </select>
+                        </label>
+                    </p>
+                </form>
 
-                    Name:<br>
-                    <label>
-                        <input type="text" name="name">
-                    </label>
-                    <%--<div id="error_name"></div>--%>
-                    <br>
+                <p><strong>Выберите подкатегорию</strong></p>
+                <form>
+                    <p>
+                        <label>
+                            <select id="selectSubcategory">
+                            </select>
+                        </label>
+                    </p>
+                </form>
 
-                    Price:<br>
+                <p><strong>диапазон цен</strong></p>
+                <form>
+                    <p>
+                        <label>
+                            <input id="minPrice" type="number" value="0"> -
+                        </label>
+                        <label>
+                            <input id="maxPrice" type="number" value="100000">
+                        </label>
+                    </p>
+                </form>
+                <p><strong>Сортировать по</strong></p>
+                <form id="orderBy">
                     <label>
-                        <input type="text" name="price">
+                        <input type="radio" name="radioName" value="producer" /> producer <br />
+                        <input type="radio" name="radioName" value="price" /> price <br />
+                        <input type="radio" name="radioName" value="id" checked/> id <br />
                     </label>
-                    <%--<div id="error_name"></div>--%>
-                    <br>
+                </form>
 
-                    Producer:<br>
+                <p><strong>Кол-во на странице</strong></p>
+                <form id="pageSize">
                     <label>
-                        <input type="text" name="producer">
+                        <input type="radio" name="pageSize" value=5 /> 5 <br />
+                        <input type="radio" name="pageSize" value=10 /> 10 <br />
+                        <input type="radio" name="pageSize" value=20 checked/> 20 <br />
                     </label>
-                    <%--<div id="error_name"></div>--%>
-                    <br>
+                </form>
 
-                    <br>
-                    <input id="createProductButton" type="button" value="submit">
-                </fieldset>
+                <p><strong>Страница</strong></p>
+                <form>
+                    <label>
+                        <input id="page" type="number" value="1">
+                    </label>
+                </form>
+            </div>
+        </div>
+        <div class="col-sm-9 col-md-10 main">
+            <h1 class="page-header">Product manager</h1>
+            <button id="addProductButton">Добавить продукт</button>
+
+            <div class="container">
+
+            </div>
+
+            <form class="form-group" id="createSubCategory" method="post" hidden>
+                <div class="form-group">
+                    <fieldset>
+                        <legend>Create Product:</legend>
+                        Category Id:<br>
+                        <label>
+                            <input disabled type="text" name="categoryId">
+                        </label>
+                        <div id="error_categoryId"></div>
+                        <br>
+                        Subcategory Id:<br>
+                        <label>
+                            <input disabled type="text" name="subcategoryId">
+                        </label>
+                        <%--<div id="error_name"></div>--%>
+                        <br>
+                        Product Id:<br>
+                        <label>
+                            <input type="text" name="id">
+                        </label>
+                        <%--<div id="error_name"></div>--%>
+                        <br>
+
+                        Name:<br>
+                        <label>
+                            <input type="text" name="name">
+                        </label>
+                        <%--<div id="error_name"></div>--%>
+                        <br>
+
+                        Price:<br>
+                        <label>
+                            <input type="text" name="price">
+                        </label>
+                        <%--<div id="error_name"></div>--%>
+                        <br>
+
+                        Producer:<br>
+                        <label>
+                            <input type="text" name="producer">
+                        </label>
+                        <%--<div id="error_name"></div>--%>
+                        <br>
+
+                        <br>
+                        <input id="createProductButton" type="button" value="submit">
+                    </fieldset>
+                    </div>
             </form>
+
         </div>
+
     </div>
-    </div>
+</div>
 </body>
+</html>
