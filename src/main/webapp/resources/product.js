@@ -31,7 +31,7 @@ function getUrl(){
 $(document).ready(function() {
     loadAllCategories(createCategoryList);
     $('#addProductButton').on('click', function (event) {
-        $('#productCreateContainer').toggle();
+        $('#createSubCategory').toggle();
         $('input[name=categoryId]').val($('#selectCategory').val());
         $('input[name=subcategoryId]').val($('#selectSubcategory').val());
     });
@@ -114,7 +114,7 @@ function createSubCategoryList(data) {
 
 });
     $subcategoryList.on("change", function(){
-        $('#productList').empty();
+        $('.container').empty();
         categoryId = $('#selectCategory').val();
         subCategoryId = $('#selectSubcategory').val();
         url = getUrl();
@@ -124,21 +124,30 @@ function createSubCategoryList(data) {
 }
 
 function createProductList(data) {
-    var $productList = $('#productList');
+    var $productList = $('.container');
     console.log(data);
 
-    var productList = data._embedded.productBasicDtoList;
+    productList = data._embedded.productBasicDtoList;
 
     console.log(data._embedded.productBasicDtoList[0]._links.self);
 
 
     $productList.empty();
     $.each(productList, function(i, product) {
-        var productEntity = document.createElement('p');
-        productEntity.appendChild(document.createTextNode(product.productId + " " +
-            product.name + " " + product.price + " " + product.producer));
+        var row = document.createElement('div');
+        row.className = 'row';
+        var col = document.createElement('div');
+        col.className = 'col-lg-7';
+        var header = document.createElement('h3');
+        header.appendChild(document.createTextNode(product.productId + " "+ product.name));
 
-        $productList.append(productEntity);
+        var price = document.createElement('p');
+        price.appendChild(document.createTextNode("price " + product.price));
+        var productEntity = document.createElement('p');
+        productEntity.appendChild(document.createTextNode("producer " + product.producer));
+        col.appendChild(header);
+        col.appendChild(productEntity);
+        col.appendChild(price);
 
         var deleteButton = document.createElement('button');
         deleteButton.onclick = function () {
@@ -153,9 +162,16 @@ function createProductList(data) {
             }
         };
         deleteButton.appendChild(document.createTextNode("Delete"));
-        $productList.append(deleteButton);
 
+
+        col.appendChild(deleteButton);
+
+        row.appendChild(col);
+        $productList.append(row);
+
+        
         $productList.append(document.createElement('br'));
-    })
+    });
+
 }
 

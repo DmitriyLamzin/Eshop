@@ -9,61 +9,57 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <html>
 <head>
-  <title>admin page, limited access</title>
+  <title>admin page</title>
   <spring:url value="/resources/jquery.min.js" var="jqueryJs" />
   <spring:url value="/resources/app.js" var="appJs" />
   <spring:url value="/resources/catalog.js" var="catalogJs" />
+  <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCss" />
+  <spring:url value="/resources/css/main.css" var="mainCss" />
+
 
   <script type="text/javascript" src="${jqueryJs}" ></script>
   <script type="text/javascript" src="${appJs}" ></script>
   <script type="text/javascript" src="${catalogJs}" ></script>
-
+  <script type="text/javascript" src="${prodJs}" ></script>
+  <script type="text/javascript" src="${bucketJs}" ></script>
+  <link href="${bootstrapCss}" rel="stylesheet" />
+  <link href="${mainCss}" rel="stylesheet" />
 
 </head>
 <body>
-  <p> Hello, Admin</p>
-  <ul id="navbar">
-    <li><a class="ajax" href="${pageContext.request.contextPath}/admin">Главная</a></li>
-    <li><a class="ajax" href="${pageContext.request.contextPath}/admin/catalog">Управление каталогом</a></li>
-    <li><a class="ajax" href="${pageContext.request.contextPath}/admin/products">Управление продуктами</a></li>
-  </ul>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/admin" >eShop admin tool</a>
+    </div>
+  </div>
+</nav>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-3 col-md-2 sidebar">
+      <ul id="admin_tools" class="nav nav-sidebar">
+          <li>
+            <a class="admin_tool" href="/admin/catalog">catalog sections manager</a>
+          </li>
+        <li>
+          <a class="admin_tool" href="/admin/products">products manager  </a>
+        </li>
+        <li>
+          <a class="admin_tool" href="/admin/order">orders manager</a>
 
-  <div class="container" id="div0">
-    <div class="container" id="div1">
-      <div class="container" id="div2">
-        <h1>This is the catalog control page</h1>
-        Catalog structure<br>
-        <button id="addCategoryButton">Добавить категорию</button>
+        </li>
+      </ul>
+    </div>
+    <div class="col-sm-9 col-md-10 main">
+      <h1 class="page-header">Catalog section manager</h1>
+      <button id="addCategoryButton">Добавить категорию</button><br><br>
+
+      <div class="container">
+
       </div>
 
-      <div class="container" id="subCategoryContainer" hidden>
-        <h1>This is the subcategory page</h1>
-        <form id="createSubCategory" action="" method="post">
-          <fieldset>
-            Category Id:<br>
-            <label>
-              <input disabled type="text" name="containCategoryId" value="">
-            </label>
-            <legend>Create Category:</legend>
-            Subcategory Id:<br>
-            <label>
-              <input type="text" name="subCategoryId">
-            </label>
-            <div id="error_subCategoryId"></div>
-            <br>
-            Subcategory name:<br>
-            <label>
-              <input type="text" name="subCategoryName">
-            </label>
-            <div id="error_subCategoryName"></div>
-            <br><br>
-            <button id="createSubCategoryButton" type="submit" >submit</button>
-          </fieldset>
-        </form>
-      </div>
-      <div class="container" id="categoryContainer" hidden>
-        <h1>This is the category page</h1>
-        <form id="createCategory" action="" method="post">
+      <form class="form-group" id="createCategory" method="post" hidden>
+        <div class="form-group">
           <fieldset>
             <legend>Create Category:</legend>
             Category Id:<br>
@@ -85,9 +81,37 @@
                     loadAllCategories(getCategories);
                 })">
           </fieldset>
-        </form>
-      </div>
+        </div>
+      </form>
+
+      <form class="form-group" id="createSubCategory" method="post" hidden>
+        <fieldset>
+          Category Id:<br>
+          <label>
+            <input disabled type="text" name="containCategoryId" value="">
+          </label>
+          <legend>Create Subcategory:</legend>
+          Subcategory Id:<br>
+          <label>
+            <input type="text" name="subCategoryId">
+          </label>
+          <div id="error_subCategoryId"></div>
+          <br>
+          Subcategory name:<br>
+          <label>
+            <input type="text" name="subCategoryName">
+          </label>
+          <div id="error_subCategoryName"></div>
+          <br><br>
+          <button id="createSubCategoryButton" type="submit" >submit</button>
+        </fieldset>
+      </form>
+
+
+
     </div>
+
   </div>
+</div>
 </body>
 </html>
