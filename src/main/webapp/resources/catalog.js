@@ -118,8 +118,11 @@ function getCategories(data){
 }
 
 function getSubCategories(data, categoryId){
-    subcategories = data._embedded.subcategoryBasicDtoList;
     var id = categoryId;
+
+    $('#subcategoryList' + id).remove();
+
+    subcategories = data._embedded.subcategoryBasicDtoList;
 
     console.log(data);
     console.log(data._embedded.subcategoryBasicDtoList[0]._links.self);
@@ -136,7 +139,6 @@ function getSubCategories(data, categoryId){
     //    button.value = data._links.self.href;
     //    div.appendChild(button);
     //    button.appendChild(document.createTextNode('Добавить подкатегорию'));
-    $('#subcategoryList' + id).remove();
         var ul = document.createElement('ul');
         ul.id = 'subcategoryList' + id;
         ul.className = '';
@@ -160,7 +162,9 @@ function getSubCategories(data, categoryId){
                 var url = object._links.self.href;
                 if (confirm("Do you really want to delete this subcategory?") == true) {
                     deleteCategory(url, function(){
-                        loadAllSubCategories(url, id, getSubCategories);
+                        var newURL = url.substring(0, url.length - object.subcategoryId.length - 1);
+                        console.log(newURL);
+                        loadAllSubCategories(newURL, id, getSubCategories);
                     })
                 } else {
 
