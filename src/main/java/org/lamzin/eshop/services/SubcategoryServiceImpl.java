@@ -45,11 +45,13 @@ public class SubcategoryServiceImpl implements ExistenceCheckable<String>, Subca
 
     public boolean exists (String id) {
         return subCategoryDao.exists(id);
-//        return true;
     }
 
     public void deleteSubcategory (String subcategoryId, String categoryId){
-            subCategoryDao.delete(categoryId, subcategoryId);
+        Category category = categoryDao.findById(categoryId);
+        SubCategory subCategory = subCategoryDao.findById(categoryId, subcategoryId);
+        category.deleteSubcategoryFromList(subCategory);
+        subCategoryDao.delete(subcategoryId);
     }
 
     public SubCategory getSubcategory(String subCategoryId, String categoryId) {

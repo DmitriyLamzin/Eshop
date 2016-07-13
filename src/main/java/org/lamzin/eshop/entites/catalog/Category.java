@@ -31,6 +31,10 @@ public class Category implements Serializable {
     @OneToMany(orphanRemoval = true)
     List<SubCategory> subCategories = new ArrayList<SubCategory>();
 
+    public void deleteSubcategoryFromList(SubCategory subCategory){
+        subCategories.remove(subCategory);
+    }
+
     public List<SubCategory> getSubCategories() {
         return subCategories;
     }
