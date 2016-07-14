@@ -8,12 +8,12 @@ import java.util.Date;
 
 
 public class User {
-    long id;
-    String firstName, secondName;
+    private long id;
+    private String firstName, secondName;
 //    Role role;
-    String password;
-    OrderCard orderCard;
-    Date registrationDate;
+    private String password;
+    private OrderCard orderCard;
+    private Date registrationDate;
 
     public long getId() {
         return id;

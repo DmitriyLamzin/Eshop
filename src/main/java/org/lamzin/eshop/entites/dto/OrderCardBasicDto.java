@@ -9,12 +9,12 @@ import org.springframework.hateoas.ResourceSupport;
  * Created by Dmitriy on 14.06.2016.
  */
 public class OrderCardBasicDto extends ResourceSupport {
-    long orderId;
-    int size;
-    double totalPrice;
+    private long orderId;
+    private int size;
+    private double totalPrice;
 
     @Email @NotEmpty
-    String personEmail;
+    private String personEmail;
 
     public OrderCardBasicDto(OrderCard orderCard) {
         this.orderId = orderCard.getId();

@@ -15,17 +15,17 @@ import java.util.List;
 public class OrderCard {
 
     @Id @GeneratedValue
-    long id;
+    private long id;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JsonIgnore
-    List<Product> products = new ArrayList<Product>();
+    private List<Product> products = new ArrayList<Product>();
 
     @Transient
-    double totalPrice = 0;
+    private double totalPrice = 0;
 
     @ManyToOne(targetEntity = Person.class, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
-    Person person;
+    private Person person;
 
     public OrderCard() {
     }

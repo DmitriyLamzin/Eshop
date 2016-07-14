@@ -14,12 +14,12 @@ import java.util.List;
 
 public class OrderCardExtendedDto extends ResourceSupport {
 
-    long orderCardId;
-    List<ProductBasicDto> orderedProducts = new ArrayList<ProductBasicDto>();
-    int size;
-    double totalPrice = 0;
+    private long orderCardId;
+    private List<ProductBasicDto> orderedProducts = new ArrayList<ProductBasicDto>();
+    private int size;
+    private double totalPrice = 0;
     @Email @NotEmpty
-    String personEmail = "";
+    private String personEmail = "";
 
 
     public OrderCardExtendedDto() {

@@ -9,11 +9,11 @@ import javax.persistence.Id;
 @Entity
 public class Person {
     @Id
-    String email;
+    private String email;
 
-    String firstName;
+    private String firstName;
 
-    String lastName;
+    private String lastName;
 
     public String getEmail() {
         return email;

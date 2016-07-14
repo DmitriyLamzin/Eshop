@@ -22,14 +22,14 @@ public class Category implements Serializable {
     @Id
     @NotEmpty
     @IsNotPersist(serviceName = "categoryService")
-    String categoryId;
+    private String categoryId;
 
     @NotEmpty
-    String name;
+    private String name;
 
     @JsonIgnore
     @OneToMany(orphanRemoval = true)
-    List<SubCategory> subCategories = new ArrayList<SubCategory>();
+    private List<SubCategory> subCategories = new ArrayList<SubCategory>();
 
     public void deleteSubcategoryFromList(SubCategory subCategory){
         subCategories.remove(subCategory);
