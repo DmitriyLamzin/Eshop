@@ -2,7 +2,7 @@ package org.lamzin.eshop.model.catalog;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.lamzin.eshop.services.validation.IsNotPersist;
+import org.lamzin.eshop.validation.IsNotPersist;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.Entity;

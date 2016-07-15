@@ -1,8 +1,9 @@
 package org.lamzin.eshop.dao.impl;
 
 import org.lamzin.eshop.dao.interfaces.OrderCardDao;
-import org.lamzin.eshop.entites.OrderCard;
-import org.lamzin.eshop.entites.Person;
+
+import org.lamzin.eshop.model.OrderCard;
+import org.lamzin.eshop.model.Person;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;

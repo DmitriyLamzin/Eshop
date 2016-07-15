@@ -2,7 +2,6 @@ package org.lamzin.eshop.dao.impl;
 
 import org.lamzin.eshop.dao.interfaces.CategoryDao;
 import org.lamzin.eshop.model.catalog.Category;
-import org.lamzin.eshop.model.catalog.SubCategory;
 import org.springframework.stereotype.Repository;
 
 /**

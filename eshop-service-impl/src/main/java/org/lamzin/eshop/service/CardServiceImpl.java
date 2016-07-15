@@ -6,6 +6,7 @@ import org.lamzin.eshop.dao.interfaces.ProductDao;
 import org.lamzin.eshop.model.OrderCard;
 import org.lamzin.eshop.model.Person;
 import org.lamzin.eshop.model.catalog.Product;
+import org.lamzin.eshop.service.interfaces.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -16,9 +17,9 @@ import java.util.List;
 /**
  * Created by Dmitriy on 13.06.2016.
  */
-@Service
+@Service("cardService")
 @Transactional
-public class CardServiceImpl {
+public class CardServiceImpl implements CardService {
 
     private GenericDao<Person, String> personDao;
 
@@ -48,7 +49,7 @@ public class CardServiceImpl {
         return dao.findById(id);
     }
 
-    public void deletOrderCard (long Id){
+    public void deletOrderCard(long Id){
         dao.delete(Id);
     }
 

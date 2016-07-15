@@ -2,7 +2,8 @@ package org.lamzin.eshop.dto;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.lamzin.eshop.entites.OrderCard;
+
+import org.lamzin.eshop.model.OrderCard;
 import org.springframework.hateoas.ResourceSupport;
 
 /**

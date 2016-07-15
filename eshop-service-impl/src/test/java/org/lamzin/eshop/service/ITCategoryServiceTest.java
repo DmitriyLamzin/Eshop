@@ -9,9 +9,8 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
 import org.lamzin.eshop.model.catalog.Category;
-import org.lamzin.eshop.model.catalog.Product;
 import org.lamzin.eshop.model.catalog.SubCategory;
-import org.lamzin.eshop.services.CategoryService;
+import org.lamzin.eshop.service.interfaces.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.annotation.Rollback;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
 /**
  * Created by Dmitriy on 26.06.2016.
  */
-@ContextConfiguration(locations = "classpath:application-context-test.xml")
+@ContextConfiguration(locations = "classpath:applicationContext-service-impl.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({
         DependencyInjectionTestExecutionListener.class,

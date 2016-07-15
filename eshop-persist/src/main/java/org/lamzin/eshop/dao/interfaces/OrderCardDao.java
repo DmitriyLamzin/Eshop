@@ -1,6 +1,6 @@
 package org.lamzin.eshop.dao.interfaces;
 
-import org.lamzin.eshop.entites.OrderCard;
+import org.lamzin.eshop.model.OrderCard;
 
 import java.util.List;
 

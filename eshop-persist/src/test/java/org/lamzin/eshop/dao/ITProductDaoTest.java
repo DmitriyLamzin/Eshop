@@ -25,7 +25,7 @@ import java.util.ArrayList;
 /**
  * Created by Dmitriy on 16.06.2016.
  */
-@ContextConfiguration(locations = "classpath:application-context-test.xml")
+@ContextConfiguration(locations = "classpath:applicationContext-persist-test.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({
         DependencyInjectionTestExecutionListener.class,

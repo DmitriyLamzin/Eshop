@@ -2,7 +2,7 @@ package org.lamzin.eshop.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.lamzin.eshop.entites.catalog.Product;
+import org.lamzin.eshop.model.catalog.Product;
 
 import javax.persistence.*;
 import java.util.ArrayList;

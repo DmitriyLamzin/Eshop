@@ -1,5 +1,6 @@
 package org.lamzin.eshop.service.interfaces;
 
+
 import org.lamzin.eshop.dao.interfaces.CategoryDao;
 import org.lamzin.eshop.model.catalog.Category;
 

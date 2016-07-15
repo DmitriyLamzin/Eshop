@@ -1,8 +1,8 @@
-package org.lamzin.eshop.services.dtoBuilders;
+package org.lamzin.eshop.dtoBuilder;
 
 import org.lamzin.eshop.dao.interfaces.ProductDao;
+import org.lamzin.eshop.dto.ProductBasicDto;
 import org.lamzin.eshop.model.catalog.Product;
-import org.lamzin.eshop.entites.dto.ProductBasicDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

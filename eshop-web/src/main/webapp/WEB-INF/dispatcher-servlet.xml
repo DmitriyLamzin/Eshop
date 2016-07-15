@@ -10,7 +10,7 @@
        http://www.springframework.org/schema/context/spring-context.xsd">
 
        <context:annotation-config />
-       <context:component-scan base-package="org.lamzin.eshop.controllers" />
+       <context:component-scan base-package="org.lamzin.eshop.viewcontroller" />
 
        <bean class="org.lamzin.eshop.HateoasContext$HypermediaConfig" />
 
@@ -21,8 +21,8 @@
        <mvc:annotation-driven validator="validator"/>
        <mvc:default-servlet-handler />
 
-       <import resource="classpath:spring-aop.xml"/>
-       <import resource="classpath:applicationContext.xml"/>
+       <!--<import resource="classpath:spring-aop.xml"/>-->
+       <!--<import resource="classpath:applicationContext.xml"/>-->
        <!--<import resource="classpath:security.xml"/>-->
 
 </beans>

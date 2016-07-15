@@ -1,10 +1,11 @@
 package org.lamzin.eshop.controller.rest;
 
-import org.lamzin.eshop.dao.catalog.interfaces.CategoryDao;
-import org.lamzin.eshop.entites.catalog.Category;
-import org.lamzin.eshop.entites.dto.CategoryBasicDto;
-import org.lamzin.eshop.services.CategoryService;
-import org.lamzin.eshop.services.dtoWrapers.CategoryDtoBuilder;
+import org.lamzin.eshop.dao.interfaces.CategoryDao;
+import org.lamzin.eshop.dto.CategoryBasicDto;
+import org.lamzin.eshop.dtoBuilder.CategoryDtoBuilder;
+import org.lamzin.eshop.model.catalog.Category;
+
+import org.lamzin.eshop.service.interfaces.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resources;

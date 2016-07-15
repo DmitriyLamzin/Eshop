@@ -31,7 +31,7 @@ import javax.validation.ConstraintViolationException;
  * Created by Dmitriy on 15.06.2016.
  */
 
-@ContextConfiguration(locations = "classpath:application-context-test.xml")
+@ContextConfiguration(locations = "classpath:applicationContext-persist-test.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({
         DependencyInjectionTestExecutionListener.class,
@@ -57,7 +57,6 @@ public class ITGenericDaoTest {
     @Qualifier("GenericDao")
     private void setGenericDao(GenericDao<SubCategory, String> genericDao) {
         this.genericDao = genericDao;
-
         this.genericDao.setType(SubCategory.class);
     }
 

@@ -6,6 +6,10 @@ import org.lamzin.eshop.model.catalog.Product;
 import org.lamzin.eshop.service.interfaces.ProductService;
 import org.lamzin.eshop.service.interfaces.SubcategoryService;
 import org.lamzin.eshop.validation.ExistenceCheckable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 
 import java.util.List;
 @Service("productService")

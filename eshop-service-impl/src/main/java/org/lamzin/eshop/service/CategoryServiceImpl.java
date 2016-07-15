@@ -4,7 +4,7 @@ import org.lamzin.eshop.dao.interfaces.CategoryDao;
 import org.lamzin.eshop.model.catalog.Category;
 import org.lamzin.eshop.model.catalog.SubCategory;
 import org.lamzin.eshop.service.interfaces.CategoryService;
-import org.lamzin.eshop.service.interfaces.ExistenceCheckable;
+import org.lamzin.eshop.validation.ExistenceCheckable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

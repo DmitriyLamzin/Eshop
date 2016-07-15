@@ -1,9 +1,9 @@
-package org.lamzin.eshop.services.dtoBuilders;
+package org.lamzin.eshop.dtoBuilder;
 
 import org.lamzin.eshop.controller.rest.ProductController;
 import org.lamzin.eshop.controller.rest.SubCategoryController;
+import org.lamzin.eshop.dto.SubcategoryBasicDto;
 import org.lamzin.eshop.model.catalog.SubCategory;
-import org.lamzin.eshop.entites.dto.SubcategoryBasicDto;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
 import org.springframework.stereotype.Service;
 

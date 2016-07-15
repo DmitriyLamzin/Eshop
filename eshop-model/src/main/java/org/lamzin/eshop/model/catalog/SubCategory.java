@@ -1,7 +1,8 @@
 package org.lamzin.eshop.model.catalog;
 
+
 import org.hibernate.validator.constraints.NotEmpty;
-import org.lamzin.eshop.services.validation.IsNotPersist;
+import org.lamzin.eshop.validation.IsNotPersist;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

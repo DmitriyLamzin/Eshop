@@ -1,12 +1,13 @@
 package org.lamzin.eshop.controller.rest;
 
-import org.lamzin.eshop.entites.OrderCard;
-import org.lamzin.eshop.entites.Person;
-import org.lamzin.eshop.entites.dto.OrderCardBasicDto;
-import org.lamzin.eshop.entites.dto.OrderCardExtendedDto;
-import org.lamzin.eshop.services.CardService;
-import org.lamzin.eshop.services.dtoWrapers.DtoToOrderCardBuilder;
-import org.lamzin.eshop.services.dtoWrapers.OrderCardDtoBuilder;
+
+import org.lamzin.eshop.dto.OrderCardBasicDto;
+import org.lamzin.eshop.dto.OrderCardExtendedDto;
+import org.lamzin.eshop.dtoBuilder.DtoToOrderCardBuilder;
+import org.lamzin.eshop.dtoBuilder.OrderCardDtoBuilder;
+import org.lamzin.eshop.model.OrderCard;
+import org.lamzin.eshop.model.Person;
+import org.lamzin.eshop.service.interfaces.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resources;

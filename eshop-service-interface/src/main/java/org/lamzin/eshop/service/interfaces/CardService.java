@@ -13,9 +13,6 @@ import java.util.List;
  * Created by Dmitriy on 15.07.2016.
  */
 public interface CardService {
-    @Autowired
-    @Qualifier("GenericDao")
-    void setPersonDao(GenericDao<Person, String> genericDao);
 
     OrderCard createOrderCard(OrderCard orderCard);
 

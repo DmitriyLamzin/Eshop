@@ -1,9 +1,9 @@
-package org.lamzin.eshop.services.dtoBuilders;
+package org.lamzin.eshop.dtoBuilder;
 
 import org.lamzin.eshop.controller.rest.CategoryController;
 import org.lamzin.eshop.controller.rest.SubCategoryController;
 import org.lamzin.eshop.model.catalog.Category;
-import org.lamzin.eshop.entites.dto.CategoryBasicDto;
+import org.lamzin.eshop.dto.CategoryBasicDto;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

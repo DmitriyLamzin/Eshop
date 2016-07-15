@@ -1,8 +1,8 @@
-package org.lamzin.eshop.services.dtoBuilders;
+package org.lamzin.eshop.dtoBuilder;
 
-import org.lamzin.eshop.entites.OrderCard;
-import org.lamzin.eshop.entites.Person;
-import org.lamzin.eshop.entites.dto.OrderCardExtendedDto;
+import org.lamzin.eshop.model.OrderCard;
+import org.lamzin.eshop.model.Person;
+import org.lamzin.eshop.dto.OrderCardExtendedDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

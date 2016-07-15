@@ -1,6 +1,6 @@
 package org.lamzin.eshop.controller.rest;
 
-import org.lamzin.eshop.entites.dto.ValidationErrorDTO;
+import org.lamzin.eshop.dto.ValidationErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;

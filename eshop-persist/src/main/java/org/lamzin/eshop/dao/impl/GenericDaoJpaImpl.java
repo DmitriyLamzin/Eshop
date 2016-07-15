@@ -1,7 +1,6 @@
 package org.lamzin.eshop.dao.impl;
 
 import org.lamzin.eshop.dao.interfaces.GenericDao;
-import org.lamzin.eshop.model.catalog.Product;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;

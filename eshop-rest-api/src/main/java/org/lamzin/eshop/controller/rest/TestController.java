@@ -1,7 +1,7 @@
 package org.lamzin.eshop.controller.rest;
 
 import org.lamzin.eshop.model.catalog.Product;
-import org.lamzin.eshop.services.ProductService;
+import org.lamzin.eshop.service.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

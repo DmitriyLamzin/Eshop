@@ -1,45 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:context="http://www.springframework.org/schema/context"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
        http://www.springframework.org/schema/context
-       http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/tx
-       http://www.springframework.org/schema/tx/spring-tx.xsd">
+       http://www.springframework.org/schema/context/spring-context.xsd">
 
-              <context:annotation-config />
-       <context:component-scan base-package="org.lamzin.eshop.services" />
-       <context:component-scan base-package="org.lamzin.eshop.entites" />
-       <context:component-scan base-package="org.lamzin.eshop.dao" />
-       <context:component-scan base-package="org.lamzin.eshop.aspects" />
+       <context:annotation-config />
+       <context:component-scan base-package="org.lamzin.eshop.controller.rest" />
+       <context:component-scan base-package="org.lamzin.eshop.dtoBuilder" />
+       <context:component-scan base-package="org.lamzin.eshop.dtoBuilder" />
+       <context:component-scan base-package="org.lamzin.eshop.service" />
 
-       <tx:annotation-driven transaction-manager="txManager" />
+       <bean class="org.lamzin.eshop.HateoasContext$HypermediaConfig" />
 
+       <mvc:view-resolvers>
+              <mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp"/>
+       </mvc:view-resolvers>
+       <!--<mvc:resources mapping="/resources/**" location="/resources/" />-->
+       <mvc:annotation-driven validator="validator"/>
+       <mvc:default-servlet-handler />
 
-       <bean id="validator"
-             class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+       <!--<import resource="classpath:spring-aop.xml"/>-->
+       <import resource="classpath:applicationContext-security.xml"/>
 
-       <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor">
-              <property name="validator" ref="validator"/>
-       </bean>
-
-       <bean id="txManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-              <property name="entityManagerFactory" ref="emf" />
-       </bean>
-
-       <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-              <property name="jpaPropertyMap">
-                     <map>
-                            <entry key="javax.persistence.validation.factory" value-ref="validator" />
-                     </map>
-              </property>
-       </bean>
-
-       <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
-
-       <import resource="/spring-aop.xml" />
-       <import resource="/security.xml" />
 </beans>
