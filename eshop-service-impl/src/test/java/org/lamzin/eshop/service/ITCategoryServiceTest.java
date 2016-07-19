@@ -24,9 +24,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
 
-/**
- * Created by Dmitriy on 26.06.2016.
- */
 @ContextConfiguration(locations = "classpath:applicationContext-service-impl-test.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({
@@ -35,7 +32,15 @@ import java.util.ArrayList;
         DbUnitTestExecutionListener.class
 })
 @DatabaseSetup("/productDataset.xml")
+@Transactional
+@Rollback(true)
 public class ITCategoryServiceTest {
+
+    private static final String ID_ENTITY_TO_SAVE = "id_entityToSave";
+    private static final String NAME_ENTITY_TO_SAVE = "name_entityToSave";
+    private static final String ID_CATEGORY_SAVED = "id_categorySaved";
+
+
 
     @Autowired
     @Qualifier("categoryService")
@@ -48,14 +53,11 @@ public class ITCategoryServiceTest {
     public ExpectedException exception = ExpectedException.none();
 
     @Test
-    @Transactional
-    @Rollback(true)
     public void testSave(){
-
         Category category = new Category();
         category.setSubCategories(new ArrayList<SubCategory>());
-        category.setCategoryId("id_entityToSave");
-        category.setName("name_entityToSave");
+        category.setCategoryId(ID_ENTITY_TO_SAVE);
+        category.setName(NAME_ENTITY_TO_SAVE);
 
         categoryService.addCategory(category);
 
@@ -65,21 +67,17 @@ public class ITCategoryServiceTest {
         Category savedEntity = entityManager.find(Category.class, category.getCategoryId());
         Assert.assertNotNull(savedEntity);
 
-        Assert.assertEquals("name_entityToSave", savedEntity.getName());
+        Assert.assertEquals(NAME_ENTITY_TO_SAVE, savedEntity.getName());
     }
 
     @Test
-    @Transactional
-    @Rollback(true)
     public void testDelete(){
 
-        categoryService.deleteCategory("id_categorySaved");
+        categoryService.deleteCategory(ID_CATEGORY_SAVED);
 
         entityManager.flush();
 
-        Assert.assertNull(entityManager.find(Category.class, "id_categorySaved"));
-
-        Assert.assertNotNull(entityManager.find(SubCategory.class, "id_subCategoryForDaoTest"));
+        Assert.assertNull(entityManager.find(Category.class, ID_CATEGORY_SAVED));
     }
 
 
