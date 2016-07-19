@@ -21,8 +21,9 @@
        <mvc:annotation-driven validator="validator"/>
        <mvc:default-servlet-handler />
 
-       <!--<import resource="classpath:spring-aop.xml"/>-->
-       <!--<import resource="classpath:applicationContext.xml"/>-->
+
+       <import resource="classpath:applicationContext-rest-api.xml"/>
+       <!--<import resource="classpath:applicationContext-persist.xml"/>-->
        <!--<import resource="classpath:security.xml"/>-->
 
 </beans>

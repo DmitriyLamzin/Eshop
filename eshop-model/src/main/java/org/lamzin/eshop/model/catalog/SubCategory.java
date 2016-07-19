@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Entity
 public class SubCategory {
     @Id
-    @IsNotPersist(serviceName = "subcategoryService", fieldName = "subCategoryId")
+    @IsNotPersist(typeName = SubCategory.class, fieldName = "subCategoryId")
     @NotEmpty
     private String subCategoryId;
 

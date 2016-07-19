@@ -14,7 +14,7 @@ import org.aspectj.lang.annotation.Before;
 public class ControllerLoggingAspect {
     private final Logger log = Logger.getLogger(this.getClass());
 
-    @Before("execution(* org.lamzin.eshop.controllers.rest.*.*(..))")
+    @Before("execution(* org.lamzin.eshop.*.*.*(..))")
     public void beforeMethodLog (JoinPoint joinPoint) throws Throwable {
 
         StringBuffer logMessage = getMethodDescription(joinPoint);
@@ -25,7 +25,7 @@ public class ControllerLoggingAspect {
     }
 
 
-    @AfterReturning(value = "execution(* org.lamzin.eshop.controllers.rest.*.*(..))",
+    @AfterReturning(value = "execution(* org.lamzin.*.*.*(..))",
             returning = "retVal")
     public void afterInvocationLogger(JoinPoint joinPoint, Object retVal){
         StringBuffer logMessage = getMethodDescription(joinPoint);
@@ -54,7 +54,7 @@ public class ControllerLoggingAspect {
         return logMessage;
     }
 
-    @AfterThrowing(value = "execution(* org.lamzin.eshop.controllers.rest.*.*(..))", throwing = "throwable")
+    @AfterThrowing(value = "execution(* org.lamzin.*.*.*(..))", throwing = "throwable")
     public void afterThrowingLogger(JoinPoint joinPoint, Throwable throwable){
         StringBuffer logMessage = getMethodDescription(joinPoint);
         logMessage.append(" throws: ").

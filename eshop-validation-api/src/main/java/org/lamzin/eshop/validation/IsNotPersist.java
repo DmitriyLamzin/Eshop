@@ -22,5 +22,5 @@ public @interface IsNotPersist {
     Class<? extends Payload>[] payload() default {};
 //    Class<? extends ExistenceCheckable> org.lamzin.eshop();
     String fieldName() default "id";
-    String serviceName() default "";
+    Class typeName() default Object.class;
 }

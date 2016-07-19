@@ -17,12 +17,6 @@
             <artifactId>eshop-service-interface</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
-
-        <dependency>
-            <groupId>org.lamzin.eshop</groupId>
-            <artifactId>eshop-validation-api</artifactId>
-            <version>1.1-SNAPSHOT</version>
-        </dependency>
         <dependency>
             <groupId>org.lamzin.eshop</groupId>
             <artifactId>eshop-model</artifactId>
@@ -60,6 +54,12 @@
             </exclusions>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derby</artifactId>
+            <version>10.12.1.1</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
 </project>

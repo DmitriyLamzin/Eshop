@@ -1,10 +1,11 @@
 package org.lamzin.eshop.validation;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import org.apache.log4j.Logger;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
@@ -13,11 +14,14 @@ import javax.validation.ConstraintValidatorContext;
  */
 @Transactional (propagation = Propagation.NOT_SUPPORTED)
 public class ExistenceValidation implements ConstraintValidator<IsNotPersist, Object> {
+    private final Logger log = Logger.getLogger(this.getClass());
 
-    @Autowired
-    ApplicationContext applicationContext;
 
-    ExistenceCheckable service;
+    @PersistenceContext
+    EntityManager em;
+
+
+    Class type;
     String fieldName;
     String serviceQualifier;
     String serviceName;
@@ -25,17 +29,11 @@ public class ExistenceValidation implements ConstraintValidator<IsNotPersist, Ob
 
     public void initialize(IsNotPersist parameters){
         this.fieldName = parameters.fieldName();
-        this.serviceQualifier = parameters.serviceName();
-        this.serviceName = parameters.serviceName();
-
-        Object service = applicationContext.getBean(serviceName);
-        if (service instanceof ExistenceCheckable){
-            this.service = (ExistenceCheckable) service;
-        }
-        else throw new IllegalArgumentException(serviceName);
+        this.type = parameters.typeName();
     }
 
     public boolean isValid(Object string, ConstraintValidatorContext context){
-        return !service.exists(string);
+        log.debug(em.find(type, string) == null);
+        return em.find(type, string) == null;
     }
 }

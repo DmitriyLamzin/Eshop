@@ -1,11 +1,8 @@
 package org.lamzin.eshop.service.interfaces;
 
-import org.lamzin.eshop.dao.interfaces.GenericDao;
 import org.lamzin.eshop.model.OrderCard;
 import org.lamzin.eshop.model.Person;
 import org.lamzin.eshop.model.catalog.Product;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.List;
 

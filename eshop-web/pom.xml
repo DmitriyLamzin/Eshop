@@ -10,8 +10,25 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>eshop-web</artifactId>
+    <packaging>war</packaging>
 
-<dependencies>
+
+    <dependencies>
+    <dependency>
+        <groupId>org.lamzin.eshop</groupId>
+        <artifactId>eshop-rest-api</artifactId>
+        <version>1.1-SNAPSHOT</version>
+    </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>4.2.4.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>4.2.4.RELEASE</version>
+        </dependency>
     <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-webmvc</artifactId>

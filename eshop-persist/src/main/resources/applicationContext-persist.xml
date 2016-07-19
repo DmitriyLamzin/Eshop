@@ -13,4 +13,20 @@
        <context:annotation-config />
        <context:component-scan base-package="org.lamzin.eshop.dao"/>
 
+       <bean id="validator"
+             class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+
+       <bean class="org.springframework.validation.beanvalidation.MethodValidationPostProcessor">
+              <property name="validator" ref="validator"/>
+       </bean>
+
+       <bean id="emf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+              <property name="jpaPropertyMap">
+                     <map>
+                            <entry key="javax.persistence.validation.factory" value-ref="validator" />
+                     </map>
+              </property>
+       </bean>
+
+       <!--<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>-->
 </beans>

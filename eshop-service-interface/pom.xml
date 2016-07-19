@@ -17,11 +17,7 @@
             <artifactId>eshop-model</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.lamzin.eshop</groupId>
-            <artifactId>eshop-persist</artifactId>
-            <version>1.1-SNAPSHOT</version>
-        </dependency>
+
     </dependencies>
 
 </project>

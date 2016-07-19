@@ -20,7 +20,7 @@ import java.util.List;
 public class Category implements Serializable {
     @Id
     @NotEmpty
-    @IsNotPersist(serviceName = "categoryService")
+    @IsNotPersist(typeName = Category.class)
     private String categoryId;
 
     @NotEmpty

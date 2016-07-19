@@ -12,6 +12,8 @@
     <artifactId>eshop-validation-api</artifactId>
 
     <dependencies>
+
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -47,9 +49,21 @@
 
         <dependency>
             <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
+            <artifactId>hibernate-entitymanager</artifactId>
             <version>5.0.2.Final</version>
         </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.0.2.Final</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>org.jboss.logging</artifactId>
+                    <groupId>jboss-logging</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
     </dependencies>
 
 </project>
