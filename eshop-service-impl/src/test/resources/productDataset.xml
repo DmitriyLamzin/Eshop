@@ -1,0 +1,16 @@
+<dataset>
+    <category categoryId="id_categorySaved"
+                 name="name_categorySaved"/>
+
+    <subcategory subCategoryId="id_subCategoryForDaoTest"
+                 subCategoryName="name_subCategoryForDaoTest" />
+
+    <category_subcategory category_categoryId="id_categorySaved"
+                          subCategories_subCategoryId="id_subCategoryForDaoTest" />
+
+    <product id="1"
+             name="name_ProductSavedAtDatabase"
+             subCategory_subCategoryId="id_subCategoryForDaoTest"
+             price="1.0"
+             producer="HP"/>
+</dataset>
