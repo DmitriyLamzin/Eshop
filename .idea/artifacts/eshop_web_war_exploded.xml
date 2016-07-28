@@ -7,6 +7,10 @@
           <element id="module-output" name="eshop-web" />
         </element>
         <element id="directory" name="lib">
+          <element id="archive" name="eshop-aspect-1.1-SNAPSHOT.jar">
+            <element id="module-output" name="eshop-aspect" />
+          </element>
+          <element id="library" level="project" name="Maven: org.aspectj:aspectjtools:1.8.8" />
           <element id="archive" name="eshop-rest-api-1.1-SNAPSHOT.jar">
             <element id="module-output" name="eshop-rest-api" />
           </element>
@@ -40,10 +44,6 @@
           <element id="archive" name="eshop-persist-1.1-SNAPSHOT.jar">
             <element id="module-output" name="eshop-persist" />
           </element>
-          <element id="archive" name="eshop-aspect-1.1-SNAPSHOT.jar">
-            <element id="module-output" name="eshop-aspect" />
-          </element>
-          <element id="library" level="project" name="Maven: org.aspectj:aspectjtools:1.8.8" />
           <element id="library" level="project" name="Maven: org.apache.derby:derby:10.12.1.1" />
           <element id="archive" name="eshop-service-interface-1.1-SNAPSHOT.jar">
             <element id="module-output" name="eshop-service-interface" />

@@ -16,7 +16,6 @@ import java.util.List;
  * Created by Dmitriy on 04/11/2015.
  */
 @Entity
-@Component
 public class Category implements Serializable {
     @Id
     @NotEmpty

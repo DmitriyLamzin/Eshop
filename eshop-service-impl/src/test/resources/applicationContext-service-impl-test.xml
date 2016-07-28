@@ -16,5 +16,6 @@
        </bean>
 
        <import resource="classpath:applicationContext-service-impl.xml" />
+       <import resource="applicationContext-persist.xml" />
 
 </beans>

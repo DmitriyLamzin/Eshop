@@ -13,20 +13,8 @@
        <context:component-scan base-package="org.lamzin.eshop.controller.rest" />
        <context:component-scan base-package="org.lamzin.eshop.dtoBuilder" />
        <context:component-scan base-package="org.lamzin.eshop.dtoBuilder" />
-       <context:component-scan base-package="org.lamzin.eshop.service" />
-       <context:component-scan base-package="org.lamzin.eshop.dao" />
 
        <bean class="org.lamzin.eshop.HateoasContext$HypermediaConfig" />
 
-       <mvc:view-resolvers>
-              <mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp"/>
-       </mvc:view-resolvers>
-       <!--<mvc:resources mapping="/resources/**" location="/resources/" />-->
-       <mvc:annotation-driven validator="validator"/>
-       <mvc:default-servlet-handler />
-
-       <!--<import resource="classpath:spring-aop.xml"/>-->
-       <import resource="classpath:applicationContext-security.xml"/>
-       <import resource="classpath:applicationContext-service-impl.xml" />
 
 </beans>

@@ -27,6 +27,6 @@
                      </map>
               </property>
        </bean>
-
+       <!--<import resource="classpath:spring-aop.xml" />-->
        <!--<bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>-->
 </beans>
