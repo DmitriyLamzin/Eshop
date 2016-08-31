@@ -19,6 +19,16 @@
             <artifactId>eshop-aspect</artifactId>
             <version>1.1-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.lamzin.eshop</groupId>
+            <artifactId>eshop-model</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lamzin.eshop</groupId>
+            <artifactId>eshop-service-interface</artifactId>
+            <version>1.1-SNAPSHOT</version>
+        </dependency>
     <dependency>
         <groupId>org.lamzin.eshop</groupId>
         <artifactId>eshop-rest-api</artifactId>
@@ -45,5 +55,22 @@
         <artifactId>spring-web</artifactId>
         <version>4.2.4.RELEASE</version>
     </dependency>
-</dependencies>
+        <dependency>
+            <groupId>javax.servlet.jsp.jstl</groupId>
+            <artifactId>javax.servlet.jsp.jstl-api</artifactId>
+            <version>1.2.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-spec</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.taglibs</groupId>
+            <artifactId>taglibs-standard-impl</artifactId>
+            <version>1.2.5</version>
+        </dependency>
+
+    </dependencies>
 </project>
