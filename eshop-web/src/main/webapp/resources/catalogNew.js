@@ -1,17 +1,12 @@
-/**
- * Created by Dmitriy on 02.03.2016.
- */
-
 var categories;
 var subcategories;
-loadAllCategories(getCategories);
 
 $(document).ready(function() {
     var $body = $('body');
-    $body.on('click', '#addCategoryButton', function (event) {
+    $body.on('click', '#addCategoryButton', function () {
         $('#categoryContainer').toggle();
     });
-    $body.on('click', '#addSubCategoryButton', function (event) {
+    $body.on('click', '#addSubCategoryButton', function () {
         $('#subCategoryContainer').toggle();
         $('input[name=containCategoryId]').val($(this).attr('name'));
         var catalogContainer = document.getElementById("createSubCategoryButton");
@@ -102,7 +97,7 @@ function getSubCategories(data, categoryId){
             li.className = "nav nav-sidebar";
             var a = document.createElement('a');
             a.className = 'getProductList';
-            a.href = object._links.self.href;
+            a.href = object._links.products.href;
             a.id = object.subcategoryName;
             a.appendChild(document.createTextNode(object.subcategoryName));
             li.appendChild(a);

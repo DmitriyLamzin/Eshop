@@ -1,6 +1,3 @@
-/**
- * Created by Dmitriy on 18/02/2016.
- */
 function loadPage(url, callback){
     $("#div0").load(url + " #div1", callback); // выводим полученные данные в консоль.
 }
@@ -24,8 +21,8 @@ function getEntity(url, callback){
         url: url, // url where to submit the request
         headers: {
             'Authorization':'Basic YWRtaW46cGFzcw==',
-            'Content-Type':'application/hal+json',
-            'Accept' : 'application/hal+json'
+            'Content-Type':'application/hal+json'
+            //'Accept' : 'application/hal+json'
         },
         type: "GET", // type of action POST || GET
         //dataType: 'json', // data type
@@ -80,7 +77,7 @@ function loadAllSubCategories(url,categoryId, callback){
         },
         type: "GET", // type of action POST || GET
         dataType: 'json', // data type
-        success: function(data, xml){
+        success: function(data){
             callback(data, categoryId);
         },
         error: function (xhr, resp, text) {
@@ -89,7 +86,7 @@ function loadAllSubCategories(url,categoryId, callback){
     })
 }
 
-window.onpopstate = function(e){
+window.onpopstate = function(){
     loadPage(document.location.href, loadScript);
 };
 
@@ -126,15 +123,15 @@ function createCategory(callback){
         dataType: 'json', // data type
         data: JSON.stringify(jsonData), // post data || get data
         success: callback,
-        error: function (xhr, resp, text) {
+        error: function (xhr) {
             $('#error_categoryId').empty();
             $('#error_name').empty();
             console.log(xhr);
             var fieldErrorDTOs = xhr.responseJSON.fieldErrorDTOs;
             $.each(fieldErrorDTOs, function(i, object){
-                    var error = document.getElementById("error_" + object.field);
-                    error.appendChild(document.createTextNode(object.message));
-                    error.appendChild(document.createElement('br'));
+                var error = document.getElementById("error_" + object.field);
+                error.appendChild(document.createTextNode(object.message));
+                error.appendChild(document.createElement('br'));
             })
         }
     })
@@ -154,7 +151,7 @@ function deleteCategory(url, callback){
         type: "DELETE", // type of action POST || GET
         //dataType: 'json', // data type
         success: callback,
-        error: function (xhr, resp, text) {
+        error: function (xhr) {
             console.log(xhr);
         }
     })
@@ -231,5 +228,4 @@ $(document).ready(function() {
 
     }); // закрываем скобку :)
 
-    //$('body').on('click', '#create',  createCategory());
 });

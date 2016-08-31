@@ -1,19 +1,12 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Dmitriy
-  Date: 27.06.2016
-  Time: 12:45
-  To change this template use File | Settings | File Templates.
---%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
   <title>main page</title>
   <spring:url value="/resources/jquery.min.js" var="jqueryJs" />
   <spring:url value="/resources/app.js" var="appJs" />
-  <spring:url value="/resources/catalog.js" var="catalogJs" />
+  <spring:url value="/resources/catalogNew.js" var="catalogJs" />
   <spring:url value="/resources/productNew.js" var="prodJs" />
   <spring:url value="/resources/bucket.js" var="bucketJs" />
   <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCss" />
@@ -49,7 +42,11 @@
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
       <ul id="catalog" class="nav nav-sidebar">
-
+        <c:forEach var="category" items="${categories}">
+          <li id="li${category.categoryId}">
+            <a id=${category.categoryId} class="subCategories" href=${category.getLink("subCategories").getHref()}>${category.name}</a>
+          </li>
+        </c:forEach>
       </ul>
       <div id="productFilter"  hidden>
         <p><strong>диапазон цен</strong></p>
@@ -93,7 +90,16 @@
       <h1 class="page-header">Products</h1>
 
       <div class="container">
-
+        <c:forEach var="product" items="${products}">
+          <div class="row">
+            <div class="col-lg-7">
+              <h3>${product.productId} ${product.name}</h3>
+              <p>producer ${product.producer}</p>
+              <p>price ${product.price}</p>
+              <button onclick="addProductToCard('${product.getId().href}')">add To bucket</button>
+            </div>
+          </div>
+        </c:forEach>
       </div>
     </div>
 

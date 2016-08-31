@@ -1,20 +1,15 @@
-/**
- * Created by Dmitriy on 02.03.2016.
- */
-
 var categories;
 var subcategories;
-loadAllCategories(getCategories);
 
 $(document).ready(function() {
     var $body = $('body');
-    $body.on('click', '#addCategoryButton', function (event) {
+    $body.on('click', '#addCategoryButton', function () {
         if ($('#createSubCategory').is(':visible')){
             $('#createSubCategory').toggle();
         }
         $('#createCategory').toggle();
     });
-    $body.on('click', '#addSubCategoryButton', function (event) {
+    $body.on('click', '#addSubCategoryButton', function () {
         if ($('#createCategory').is(':visible')){
             $('#createCategory').toggle();
         }

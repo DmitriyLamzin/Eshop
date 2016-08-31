@@ -1,8 +1,4 @@
 
-/**
- * Created by Dmitriy on 13.04.2016.
- */
-
 
 var pathParams = {};
 var subCategoryId;
@@ -54,23 +50,6 @@ function getUrl(){
 $(document).ready(function() {
     var $body = $('body');
 
-    //loadAllCategories(createCategoryList);
-    //$('#addProductButton').on('click', function (event) {
-    //    $('#productCreateContainer').toggle();
-    //    $('input[name=categoryId]').val($('#selectCategory').val());
-    //    $('input[name=subcategoryId]').val($('#selectSubcategory').val());
-    //});
-
-    //$('#createProductButton').on('click' , function(){
-    //    var catId = $("input[name='categoryId']").val();
-    //    var subCatId = $("input[name='subcategoryId']").val();
-    //    var url = getUrl();
-    //    var createUrl = '/rest/' + catId + '/subcategories/' + subCatId + '/products';
-    //    createSubCategory(createUrl, function() {
-    //        loadAllSubCategories(url, catId, createProductList);
-    //    })
-    //});
-
     $('#minPrice').on('change', function(){
         loadAllSubCategories(getUrl(), categoryId, createProductList);
     });
@@ -98,36 +77,6 @@ $(document).ready(function() {
         loadAllSubCategories($(this).attr('href'), categoryId, createProductList);
     });
 });
-
-
-
-
-
-//function createCategoryList(data) {
-//    var $categoryList  = $('#selectCategory');
-//    var categories = data._embedded.categoryBasicDtoList;
-//
-//    console.log(data);
-//    console.log(data._embedded.categoryBasicDtoList[0]._links.self);
-//
-//
-//    $.each(categories, function(i, category) {
-//        var option = document.createElement('option');
-//        option.value = category.categoryId;
-//        option.appendChild(document.createTextNode(category.name));
-//        //option.onchange = loadAllSubCategories('/rest/' + category.categoryId + '/subcategories', category.categoryId, createSubCategoryList);
-//        $categoryList.append(option);
-//    });
-//    var categoryId = $categoryList.val();
-//    loadAllSubCategories('/rest/' + categoryId + '/subcategories', categoryId, createSubCategoryList);
-//
-//    $categoryList.on("change", function (){
-//        var categoryId = $categoryList.val();
-//        loadAllSubCategories('/rest/' + categoryId + '/subcategories', categoryId, createSubCategoryList);
-//    });
-//
-//}
-
 
 
 function createProductList(data) {
@@ -158,7 +107,7 @@ function createProductList(data) {
 
         var addToCardButton = document.createElement("button");
         addToCardButton.onclick = function () {
-               addProductToCard(product.productId);
+            addProductToCard(product._links.self.href);
         };
         addToCardButton.appendChild(document.createTextNode("add to Bucket"));
 
@@ -167,22 +116,6 @@ function createProductList(data) {
         row.appendChild(col);
         $productList.append(row);
 
-        //var deleteButton = document.createElement('button');
-        //deleteButton.onclick = function () {
-        //    var categoryId = $('#selectCategory').val();
-        //    var subCatId = $('#selectSubcategory').val();
-        //    var url = product._links.self.href;
-        //    if (confirm("Do you really want to delete this product?") == true) {
-        //        deleteCategory(url, function () {
-        //            $productList.empty();
-        //            loadAllSubCategories(getUrl(), categoryId, createProductList);
-        //        })
-        //    }
-        //};
-        //deleteButton.appendChild(document.createTextNode("Delete"));
-        //$productList.append(deleteButton);
-        //
-        //$productList.append(document.createElement('br'));
     })
 }
 

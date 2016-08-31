@@ -1,7 +1,3 @@
-
-/**
- * Created by Dmitriy on 13.04.2016.
- */
 var pathParams = {};
 var subCategoryId;
 var categoryId;
@@ -29,8 +25,7 @@ function getUrl(){
 
 
 $(document).ready(function() {
-    loadAllCategories(createCategoryList);
-    $('#addProductButton').on('click', function (event) {
+    $('#addProductButton').on('click', function () {
         $('#createSubCategory').toggle();
         $('input[name=categoryId]').val($('#selectCategory').val());
         $('input[name=subcategoryId]').val($('#selectSubcategory').val());
@@ -71,6 +66,7 @@ $(document).ready(function() {
 function createCategoryList(data) {
     var $categoryList  = $('#selectCategory');
     var categories = data._embedded.categoryBasicDtoList;
+    $categoryList.empty();
 
     console.log(data);
     console.log(data._embedded.categoryBasicDtoList[0]._links.self);
@@ -87,6 +83,7 @@ function createCategoryList(data) {
     loadAllSubCategories('/rest/' + categoryId + '/subcategories', categoryId, createSubCategoryList);
 
     $categoryList.on("change", function (){
+        $('createSubCategory').hide();
         var categoryId = $categoryList.val();
         loadAllSubCategories('/rest/' + categoryId + '/subcategories', categoryId, createSubCategoryList);
     });
@@ -94,7 +91,10 @@ function createCategoryList(data) {
 }
 
 function createSubCategoryList(data) {
+    console.log(data);
+
     var $subcategoryList = $('#selectSubcategory');
+    $subcategoryList.empty();
     var subcategories = data._embedded.subcategoryBasicDtoList;
 
     console.log(data);
@@ -102,17 +102,13 @@ function createSubCategoryList(data) {
 
     $.each(subcategories, function(i, subcategory) {
         var option = document.createElement('option');
-        //var categoryId = $('#selectCategory').val();
 
         option.value = subcategory.subcategoryId;
         option.appendChild(document.createTextNode(subcategory.subcategoryName));
-        //option.oninput = function (){
-        //    loadAllSubCategories('/rest/' + categoryId + '/subcategories/' + subcategory.subCategoryId + '/products', categoryId, createProductList);};
-        //option.onclick = loadAllSubCategories('/rest/' + subcategory.categoryId + '/subcategories', category.categoryId, createSubCategoryList);
         $subcategoryList.append(option);
         loadAllSubCategories(getUrl(), categoryId, createProductList);
 
-});
+    });
     $subcategoryList.on("change", function(){
         $('.container').empty();
         categoryId = $('#selectCategory').val();
@@ -125,6 +121,7 @@ function createSubCategoryList(data) {
 
 function createProductList(data) {
     var $productList = $('.container');
+    $productList.empty();
     console.log(data);
 
     productList = data._embedded.productBasicDtoList;
@@ -169,7 +166,7 @@ function createProductList(data) {
         row.appendChild(col);
         $productList.append(row);
 
-        
+
         $productList.append(document.createElement('br'));
     });
 

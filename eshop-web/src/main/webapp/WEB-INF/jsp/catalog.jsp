@@ -1,4 +1,4 @@
-<%--
+  <%--
   Created by IntelliJ IDEA.
   User: Dmitriy
   Date: 02.03.2016
@@ -7,7 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+  <html>
 <head>
   <title>admin page</title>
   <spring:url value="/resources/jquery.min.js" var="jqueryJs" />
@@ -55,7 +57,29 @@
       <button id="addCategoryButton">Добавить категорию</button><br><br>
 
       <div class="container">
+          <ul id="categoryList">
+              <c:forEach var="category" items="${categories}">
+                  <li id="li${category.categoryId}">
+                      <a id=${category.categoryId} class="subCategories" href=${category.getLink("subCategories").getHref()}>
+                      ${category.name}
+                      </a>
+                      <button name="Delete" id="delete_category_${category.getCategoryId()}" onclick="new function(){
+                        var url = '${category.getLink('self').getHref()}';
+                        if (confirm('Do you really want to delete this category and all its subcategories?') == true) {
+                        deleteCategory(url, function(){
+                        loadAllCategories(getCategories);
+                        })
+                      } else {
 
+                      }
+                      }">Delete</button>
+                      <button id="addSubCategoryButton" name="${category.categoryId}" value="${category.getLink('subCategories').getHref()}">
+                          Добавить подкатегорию
+                      </button>
+
+                  </li>
+              </c:forEach>
+          </ul>
       </div>
 
       <form class="form-group" id="createCategory" method="post" hidden>
@@ -106,11 +130,7 @@
           <button id="createSubCategoryButton" type="submit" >submit</button>
         </fieldset>
       </form>
-
-
-
     </div>
-
   </div>
 </div>
 </body>

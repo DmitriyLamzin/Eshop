@@ -1,6 +1,3 @@
-/**
- * Created by Dmitriy on 29.06.2016.
- */
 const getBucketUrl = '/rest/card';
 const bucketName = 'userBucket';
 
@@ -8,7 +5,7 @@ const bucketName = 'userBucket';
 $(document).ready(function() {
     var $body = $('body');
 
-    $body.on('click', '#sendOrder', function (event) {
+    $body.on('click', '#sendOrder', function () {
         var bucket = getBucket();
         bucket.personEmail = $('#userEmail').val();
         if (bucket.orderedProducts.length < 1){
@@ -27,7 +24,7 @@ $(document).ready(function() {
                     $('#error_personEmail').empty();
                     alert('order was sent');
                 },
-                error: function (xhr, resp, text) {
+                error: function (xhr) {
                     $('#error_personEmail').empty();
                     console.log(xhr);
                     var fieldErrorDTOs = xhr.responseJSON.fieldErrorDTOs;
@@ -128,16 +125,16 @@ function saveBucket(data){
 function addProductToCard(productId){
     var bucket = getBucket();
 
-    var product = productList.filter(function(obj){
-        return obj.productId == productId;
+    getEntity(productId, function(data){
+        bucket.orderedProducts.push(data);
+        bucket.size++;
+        bucket.totalPrice += data.price;
+
+        saveBucket(bucket);
+        console.log(bucket)
     });
 
-    bucket.orderedProducts.push(product[0]);
-    bucket.size++;
-    bucket.totalPrice += product[0].price;
 
-    saveBucket(bucket);
-    console.log(bucket)
 }
 
 function removeFromCard(product) {
@@ -164,7 +161,7 @@ function createProductListForBucket() {
         var col = document.createElement('div');
         col.className = 'col-lg-7';
         var header = document.createElement('h3');
-        header.appendChild(document.createTextNode(product.productId + " "+ product.name));
+        header.appendChild(document.createTextNode(product.id + " "+ product.name));
 
         var price = document.createElement('p');
         price.appendChild(document.createTextNode("price " + product.price));
