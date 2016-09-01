@@ -19,7 +19,14 @@
   <spring:url value="/resources/bucket.js" var="bucketJs" />
   <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCss" />
   <spring:url value="/resources/css/main.css" var="mainCss" />
-
+  <script type="text/javascript">
+    var localizedMessages = [];
+    localizedMessages['lbl.from.bucket'] = "<spring:message code="lbl.from.bucket" javaScriptEscape="true" />";
+    localizedMessages['lbl.total.price'] = "<spring:message code="lbl.total.price" javaScriptEscape="true" />";
+    localizedMessages['lbl.price'] = "<spring:message code="lbl.price" javaScriptEscape="true" />";
+    localizedMessages['lbl.producer'] = "<spring:message code="lbl.producer" javaScriptEscape="true" />";
+    localizedMessages['lbl.size'] = "<spring:message code="lbl.size" javaScriptEscape="true" />";
+  </script>
 
   <script type="text/javascript" src="${jqueryJs}" ></script>
   <script type="text/javascript" src="${appJs}" ></script>
@@ -39,7 +46,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="/bucket">Корзина</a>
+          <a href="/bucket"><spring:message code="lbl.bucket"/></a>
         </li>
       </ul>
     </div>
@@ -54,7 +61,7 @@
       </ul>
     </div>
     <div class="col-sm-9 col-md-10 main">
-      <h1 class="page-header">Bucket</h1>
+      <h1 class="page-header"><spring:message code="lbl.bucket"/></h1>
 
       <div class="container">
 
@@ -63,7 +70,7 @@
   </div>
   <div class="row">
     <div class="col-sm-9 col-md-10 main">
-      <h3 class="page-header">User Data</h3>
+      <h3 class="page-header"><spring:message code="lbl.user.data"/></h3>
 
       <form class="form-group">
         <div class="form-group">
@@ -73,7 +80,7 @@
       </form>
     </div>
   </div>
-  <button id="sendOrder" class="button">send Order</button>
+  <button id="sendOrder" class="button"><spring:message code="lbl.send.order"/></button>
 </div>
 <script>createProductListForBucket()</script>
 </body>

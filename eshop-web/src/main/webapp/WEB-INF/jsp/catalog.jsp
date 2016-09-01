@@ -11,12 +11,19 @@
 
   <html>
 <head>
-  <title>admin page</title>
+  <title><spring:message code="lbl.admin.page" /></title>
   <spring:url value="/resources/jquery.min.js" var="jqueryJs" />
   <spring:url value="/resources/app.js" var="appJs" />
   <spring:url value="/resources/catalog.js" var="catalogJs" />
   <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCss" />
   <spring:url value="/resources/css/main.css" var="mainCss" />
+
+    <script type="text/javascript">
+        var localizedMessages = [];
+        localizedMessages['lbl.delete'] = "<spring:message code="lbl.delete" javaScriptEscape="true" />";
+        localizedMessages['lbl.add.subcategory'] = "<spring:message code="lbl.add.subcategory" javaScriptEscape="true" />";
+        localizedMessages['lbl.removing.acceptance'] = "<spring:message code="lbl.removing.acceptance" javaScriptEscape="true" />";
+    </script>
 
 
   <script type="text/javascript" src="${jqueryJs}" ></script>
@@ -41,20 +48,20 @@
     <div class="col-sm-3 col-md-2 sidebar">
       <ul id="admin_tools" class="nav nav-sidebar">
           <li>
-            <a class="admin_tool" href="/admin/catalog">catalog sections manager</a>
+            <a class="admin_tool" href="/admin/catalog"><spring:message code="lbl.catalog.sections.manager" /></a>
           </li>
         <li>
-          <a class="admin_tool" href="/admin/products">products manager  </a>
+          <a class="admin_tool" href="/admin/products"><spring:message code="lbl.product.manager" /></a>
         </li>
         <li>
-          <a class="admin_tool" href="/admin/order">orders manager</a>
+          <a class="admin_tool" href="/admin/order"><spring:message code="lbl.order.manager" /></a>
 
         </li>
       </ul>
     </div>
     <div class="col-sm-9 col-md-10 main">
-      <h1 class="page-header">Catalog section manager</h1>
-      <button id="addCategoryButton">Добавить категорию</button><br><br>
+      <h1 class="page-header"><spring:message code="lbl.catalog.sections.manager" /></h1>
+      <button id="addCategoryButton"><spring:message code="lbl.add.category" /></button><br><br>
 
       <div class="container">
           <ul id="categoryList">
@@ -72,9 +79,9 @@
                       } else {
 
                       }
-                      }">Delete</button>
+                      }"><spring:message code="lbl.delete"/></button>
                       <button id="addSubCategoryButton" name="${category.categoryId}" value="${category.getLink('subCategories').getHref()}">
-                          Добавить подкатегорию
+                          <spring:message code="lbl.add.subcategory" />
                       </button>
 
                   </li>
@@ -85,20 +92,20 @@
       <form class="form-group" id="createCategory" method="post" hidden>
         <div class="form-group">
           <fieldset>
-            <legend>Create Category:</legend>
-            Category Id:<br>
+            <legend><spring:message code="lbl.add.category" /></legend>
+              <spring:message code="lbl.category.id" />:<br>
             <label>
               <input type="text" name="categoryId">
             </label>
             <div id="error_categoryId"></div>
             <br>
-            Category name:<br>
+              <spring:message code="lbl.category.name" />:<br>
             <label>
               <input type="text" name="name">
             </label>
             <div id="error_name"></div>
             <br><br>
-            <input id="createCategoryButton" type="button" value="submit" onclick="createCategory(function(){
+            <input id="createCategoryButton" type="button" value="<spring:message code="lbl.submit" />" onclick="createCategory(function(){
                     $('#error_categoryId').empty();
                     $('#error_name').empty();
                     $('#response').empty();
@@ -110,24 +117,24 @@
 
       <form class="form-group" id="createSubCategory" method="post" hidden>
         <fieldset>
-          Category Id:<br>
+            <spring:message code="lbl.category.id" />:<br>
           <label>
             <input disabled type="text" name="containCategoryId" value="">
           </label>
-          <legend>Create Subcategory:</legend>
-          Subcategory Id:<br>
+          <legend><spring:message code="lbl.add.subcategory" /></legend>
+            <spring:message code="lbl.subcategory.id" />:<br>
           <label>
             <input type="text" name="subCategoryId">
           </label>
           <div id="error_subCategoryId"></div>
           <br>
-          Subcategory name:<br>
+            <spring:message code="lbl.subcategory.name" />:<br>
           <label>
             <input type="text" name="subCategoryName">
           </label>
           <div id="error_subCategoryName"></div>
           <br><br>
-          <button id="createSubCategoryButton" type="submit" >submit</button>
+          <button id="createSubCategoryButton" type="submit" ><spring:message code="lbl.submit" /></button>
         </fieldset>
       </form>
     </div>

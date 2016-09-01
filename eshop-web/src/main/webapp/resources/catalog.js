@@ -81,11 +81,10 @@ function getCategories(data){
 
             var deleteButton = document.createElement('button');
             deleteButton.id = 'delete_category_' + object.categoryId;
-            deleteButton.appendChild(document.createTextNode('Delete'));
+            deleteButton.appendChild(document.createTextNode(localizedMessages['lbl.delete']));
             deleteButton.onclick = function(){
                 var url = object._links.self.href;
-                if (confirm("Do you really want to delete this category" +
-                        "and all its subcategories?") == true) {
+                if (confirm(localizedMessages['lbl.removing.acceptance']) == true) {
                     deleteCategory(url, function(){
                         li.remove();
                         loadAllCategories(getCategories);
@@ -104,7 +103,7 @@ function getCategories(data){
             button.name = object.categoryId;
             button.value = object._links.subCategories.href;
             li.appendChild(button);
-            button.appendChild(document.createTextNode('Добавить подкатегорию'));
+            button.appendChild(document.createTextNode(localizedMessages['lbl.add.subcategory']));
 
 
             ul.appendChild(li);
@@ -152,10 +151,10 @@ function getSubCategories(data, categoryId){
 
             var button = document.createElement('button');
             button.id = 'delete_subcategory_' + object.subcategoryId;
-            button.appendChild(document.createTextNode('Delete'));
+            button.appendChild(document.createTextNode(localizedMessages['lbl.delete']));
             button.onclick = function(){
                 var url = object._links.self.href;
-                if (confirm("Do you really want to delete this subcategory?") == true) {
+                if (confirm(localizedMessages['lbl.removing.acceptance']) == true) {
                     deleteCategory(url, function(){
                         var newURL = url.substring(0, url.length - object.subcategoryId.length - 1);
                         console.log(newURL);

@@ -12,6 +12,12 @@
   <spring:url value="/resources/css/bootstrap.min.css" var="bootstrapCss" />
   <spring:url value="/resources/css/main.css" var="mainCss" />
 
+  <script type="text/javascript">
+    var localizedMessages = [];
+    localizedMessages['lbl.to.bucket'] = "<spring:message code="lbl.to.bucket" javaScriptEscape="true" />";
+    localizedMessages['lbl.price'] = "<spring:message code="lbl.price" javaScriptEscape="true" />";
+    localizedMessages['lbl.producer'] = "<spring:message code="lbl.producer" javaScriptEscape="true" />";
+  </script>
 
   <script type="text/javascript" src="${jqueryJs}" ></script>
   <script type="text/javascript" src="${appJs}" ></script>
@@ -31,7 +37,7 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav navbar-right">
         <li>
-          <a href="/bucket">Корзина</a>
+          <a href="/bucket"><spring:message code="lbl.bucket"/></a>
         </li>
       </ul>
     </div>
@@ -49,7 +55,7 @@
         </c:forEach>
       </ul>
       <div id="productFilter"  hidden>
-        <p><strong>диапазон цен</strong></p>
+        <p><strong><spring:message code="lbl.choose.price.range" /></strong></p>
         <form>
           <p>
             <label>
@@ -60,16 +66,16 @@
             </label>
           </p>
         </form>
-        <p><strong>Сортировать по</strong></p>
+        <p><strong><spring:message code="lbl.order.by" /></strong></p>
         <form id="orderBy">
           <label>
-            <input type="radio" name="radioName" value="producer" /> producer <br />
-            <input type="radio" name="radioName" value="price" /> price <br />
-            <input type="radio" name="radioName" value="id" checked/> id <br />
+            <input type="radio" name="radioName" value="producer" /> <spring:message code="lbl.producer" /> <br />
+            <input type="radio" name="radioName" value="price" /> <spring:message code="lbl.price" /> <br />
+            <input type="radio" name="radioName" value="id" checked/> <spring:message code="lbl.id" /> <br />
           </label>
         </form>
 
-        <p><strong>Кол-во на странице</strong></p>
+        <p><strong><spring:message code="lbl.page.size" /></strong></p>
         <form id="pageSize">
           <label>
             <input type="radio" name="pageSize" value=5 /> 5 <br />
@@ -78,7 +84,7 @@
           </label>
         </form>
 
-        <p><strong>Страница</strong></p>
+        <p><strong><spring:message code="lbl.page.number" /></strong></p>
         <form>
           <label>
             <input id="page" type="number" value="1">
@@ -87,16 +93,16 @@
       </div>
     </div>
     <div class="col-sm-9 col-md-10 main">
-      <h1 class="page-header">Products</h1>
+      <h1 class="page-header"><spring:message code="lbl.products" /></h1>
 
       <div class="container">
         <c:forEach var="product" items="${products}">
           <div class="row">
             <div class="col-lg-7">
               <h3>${product.productId} ${product.name}</h3>
-              <p>producer ${product.producer}</p>
-              <p>price ${product.price}</p>
-              <button onclick="addProductToCard('${product.getId().href}')">add To bucket</button>
+              <p><spring:message code="lbl.producer" /> ${product.producer}</p>
+              <p><spring:message code="lbl.price" /> ${product.price}</p>
+              <button onclick="addProductToCard('${product.getId().href}')"><spring:message code="lbl.to.bucket" /></button>
             </div>
           </div>
         </c:forEach>

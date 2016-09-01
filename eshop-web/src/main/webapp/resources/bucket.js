@@ -164,9 +164,9 @@ function createProductListForBucket() {
         header.appendChild(document.createTextNode(product.id + " "+ product.name));
 
         var price = document.createElement('p');
-        price.appendChild(document.createTextNode("price " + product.price));
+        price.appendChild(document.createTextNode(localizedMessages['lbl.price'] + " " + product.price));
         var productEntity = document.createElement('p');
-        productEntity.appendChild(document.createTextNode("producer " + product.producer));
+        productEntity.appendChild(document.createTextNode(localizedMessages['lbl.producer'] + " " + product.producer));
         col.appendChild(header);
         col.appendChild(productEntity);
         col.appendChild(price);
@@ -175,7 +175,7 @@ function createProductListForBucket() {
         removeFromCardButton.onclick = function () {
             removeFromCard(product);
         };
-        removeFromCardButton.appendChild(document.createTextNode("remove to Bucket"));
+        removeFromCardButton.appendChild(document.createTextNode(localizedMessages['lbl.from.bucket']));
 
         col.appendChild(removeFromCardButton);
 
@@ -185,13 +185,13 @@ function createProductListForBucket() {
     var rowSize = document.createElement('div');
     rowSize.className = 'row';
     var size = document.createElement('h3');
-    size.appendChild(document.createTextNode("size " + getBucket().size));
+    size.appendChild(document.createTextNode(localizedMessages['lbl.size'] + " " + getBucket().size));
     rowSize.appendChild(size);
 
     var priceRow = document.createElement('div');
     priceRow.className = 'row';
     var price = document.createElement('h3');
-    price.appendChild(document.createTextNode("total Price " + getBucket().totalPrice));
+    price.appendChild(document.createTextNode(localizedMessages['lbl.total.price'] + " " + getBucket().totalPrice));
     priceRow.appendChild(price);
 
     $productList.append(priceRow);

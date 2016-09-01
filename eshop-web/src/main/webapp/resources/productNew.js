@@ -98,9 +98,9 @@ function createProductList(data) {
         header.appendChild(document.createTextNode(product.productId + " "+ product.name));
 
         var price = document.createElement('p');
-        price.appendChild(document.createTextNode("price " + product.price));
+        price.appendChild(document.createTextNode(localizedMessages['lbl.price'] + " " + product.price));
         var productEntity = document.createElement('p');
-        productEntity.appendChild(document.createTextNode("producer " + product.producer));
+        productEntity.appendChild(document.createTextNode(localizedMessages['lbl.producer'] + " " + product.producer));
         col.appendChild(header);
         col.appendChild(productEntity);
         col.appendChild(price);
@@ -109,7 +109,7 @@ function createProductList(data) {
         addToCardButton.onclick = function () {
             addProductToCard(product._links.self.href);
         };
-        addToCardButton.appendChild(document.createTextNode("add to Bucket"));
+        addToCardButton.appendChild(document.createTextNode(localizedMessages['lbl.to.bucket']));
 
         col.appendChild(addToCardButton);
 
