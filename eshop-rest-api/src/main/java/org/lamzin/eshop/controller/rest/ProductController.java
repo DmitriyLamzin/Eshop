@@ -1,6 +1,7 @@
 package org.lamzin.eshop.controller.rest;
 
 import org.lamzin.eshop.dao.interfaces.ProductDao;
+import org.lamzin.eshop.dto.MultipleProductsRequestObject;
 import org.lamzin.eshop.dto.ProductBasicDto;
 import org.lamzin.eshop.dtoBuilder.ProductDtoBuilder;
 import org.lamzin.eshop.model.catalog.Product;
@@ -19,9 +20,6 @@ import javax.persistence.NoResultException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Dmitriy on 09/02/2016.
- */
 @RestController
 //@RequestMapping(value = "rest/{categoryId}/subcategories/{subCategoryId}/products")
 public class ProductController {
@@ -39,13 +37,13 @@ public class ProductController {
     @RequestMapping(value = "rest/{categoryId}/subcategories/{subCategoryId}/products",
             method = RequestMethod.GET)
     public Resources<ProductBasicDto> getMultipleProducts (@PathVariable String subCategoryId, @PathVariable String categoryId,
-                                               @RequestParam(value = "minPrice", required = false, defaultValue = "0") Double minPrice,
-                                               @RequestParam(value = "maxPrice", required = false, defaultValue = "100000") Double maxPrice,
-                                               @RequestParam(value = "producer", required = false, defaultValue = "all") List<String> producer,
-                                               @RequestParam(value = "orderBy", required = false, defaultValue = "id") String orderBy,
-                                              @RequestParam(value = "page", required = false, defaultValue = "1") int page,
-                                              @RequestParam(value = "pageSize", required = false, defaultValue = "25") int pageSize){
-
+                                               @ModelAttribute("multipleProductRequestObject") MultipleProductsRequestObject multipleProductsRequestObject){
+        double minPrice = multipleProductsRequestObject.getMinPrice();
+        double maxPrice = multipleProductsRequestObject.getMaxPrice();
+        List<String> producer = multipleProductsRequestObject.getProducer();
+        String orderBy = multipleProductsRequestObject.getOrderBy();
+        int page = multipleProductsRequestObject.getPage();
+        int pageSize = multipleProductsRequestObject.getPageSize();
 
         List<Product> list = productService.getMultipleProducts(subCategoryId, categoryId, minPrice, maxPrice, producer, orderBy, page, pageSize);
 
@@ -54,20 +52,26 @@ public class ProductController {
         List<Link> links = new ArrayList<Link>();
 
         links.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(ProductController.class).
-                getMultipleProducts(subCategoryId, categoryId, minPrice, maxPrice, producer, orderBy, page, pageSize)).
+                getMultipleProducts(subCategoryId, categoryId, multipleProductsRequestObject)).
                 withSelfRel());
 
         links.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(ProductController.class).
                 getSize(subCategoryId, categoryId, minPrice, maxPrice, producer)).
                 withRel("total_size"));
 
+        MultipleProductsRequestObject nextPage = new MultipleProductsRequestObject(multipleProductsRequestObject);
+        nextPage.setPage(nextPage.getPage() + 1);
+
         links.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(ProductController.class).
-                getMultipleProducts(subCategoryId, categoryId, minPrice, maxPrice, producer, orderBy, page + 1, pageSize)).
+                getMultipleProducts(subCategoryId, categoryId, nextPage)).
                 withRel("next"));
+
+        MultipleProductsRequestObject prevPage = new MultipleProductsRequestObject(multipleProductsRequestObject);
+        nextPage.setPage(prevPage.getPage() - 1);
 
         if (page > 1) {
             links.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(ProductController.class).
-                    getMultipleProducts(subCategoryId, categoryId, minPrice, maxPrice, producer, orderBy, page - 1, pageSize)).
+                    getMultipleProducts(subCategoryId, categoryId, prevPage)).
                     withRel("prev"));
         }
 
