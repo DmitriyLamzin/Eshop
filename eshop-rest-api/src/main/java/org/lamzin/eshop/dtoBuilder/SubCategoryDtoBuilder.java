@@ -2,6 +2,7 @@ package org.lamzin.eshop.dtoBuilder;
 
 import org.lamzin.eshop.controller.rest.ProductController;
 import org.lamzin.eshop.controller.rest.SubCategoryController;
+import org.lamzin.eshop.dto.MultipleProductsRequestObject;
 import org.lamzin.eshop.dto.SubcategoryBasicDto;
 import org.lamzin.eshop.model.catalog.SubCategory;
 import org.springframework.hateoas.mvc.ControllerLinkBuilder;
@@ -22,11 +23,8 @@ public class SubCategoryDtoBuilder {
                 slash(subCategory.getSubCategoryId()).
                 withSelfRel());
 
-        List<String> producers = new ArrayList<String>();
-        producers.add("all");
-
         basicDto.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(ProductController.class).getMultipleProducts(subCategory.getSubCategoryId(),
-                categoryId, 0.0, 650000.0, producers, "price", 1, 25)).withRel("products"));
+                categoryId, new MultipleProductsRequestObject())).withRel("products"));
 
         return basicDto;
     }
