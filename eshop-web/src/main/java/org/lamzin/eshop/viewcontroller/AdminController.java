@@ -42,9 +42,8 @@ public class AdminController {
 
     @RequestMapping(
             method = RequestMethod.GET)
-    public ModelAndView getAdminPage(){
-        ModelAndView modelandview = new ModelAndView("admin");
-        return modelandview;
+    public String getAdminPage(){
+        return "redirect:/admin/catalog";
     }
 
     @RequestMapping(value = "/catalog", method = RequestMethod.GET)
