@@ -19,6 +19,8 @@
                        login-processing-url="/perform_login"
                    always-use-default-target="false"/>
            <csrf disabled="true" />
+           <logout logout-url="/logout"
+                   logout-success-url="/main"/>
        </http>
 
        <authentication-manager alias="authenticationManager">

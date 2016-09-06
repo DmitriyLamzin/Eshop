@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <title><spring:message code="lbl.admin.page" /></title>
@@ -34,6 +35,15 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a class="navbar-brand" href="/admin" >eShop admin tool</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <security:authorize access="hasRole('ROLE_ADMIN')">
+                    <li>
+                        <a href="/logout"><spring:message code="lbl.logout"/></a>
+                    </li>
+                </security:authorize>
+            </ul>
         </div>
     </div>
 </nav>
