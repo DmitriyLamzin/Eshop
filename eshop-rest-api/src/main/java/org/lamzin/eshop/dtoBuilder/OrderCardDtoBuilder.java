@@ -44,6 +44,18 @@ public class OrderCardDtoBuilder {
         return orderCardBasicDtos;
     }
 
+    public List<OrderCardExtendedDto> buildListExtended(List<OrderCard> orderCards){
+        List<OrderCardExtendedDto> orderCardExtendedDtos = new ArrayList<OrderCardExtendedDto>();
+        for (OrderCard orderCard : orderCards){
+            OrderCardExtendedDto orderCardExtendedDto = buildExtended(orderCard);
+            orderCardExtendedDto.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(CardController.class).
+                    getOrderCard(orderCard.getId())).
+                    withSelfRel());
+            orderCardExtendedDtos.add(orderCardExtendedDto);
+        }
+        return orderCardExtendedDtos;
+    }
+
     public OrderCardExtendedDto buildExtended(OrderCard orderCard){
         OrderCardExtendedDto orderCardExtendedDto = new OrderCardExtendedDto(orderCard);
 

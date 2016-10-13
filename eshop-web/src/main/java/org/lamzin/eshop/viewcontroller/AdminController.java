@@ -1,14 +1,18 @@
 package org.lamzin.eshop.viewcontroller;
 
 import org.lamzin.eshop.dto.CategoryBasicDto;
+import org.lamzin.eshop.dto.OrderCardExtendedDto;
 import org.lamzin.eshop.dto.ProductBasicDto;
 import org.lamzin.eshop.dto.SubcategoryBasicDto;
 import org.lamzin.eshop.dtoBuilder.CategoryDtoBuilder;
+import org.lamzin.eshop.dtoBuilder.OrderCardDtoBuilder;
 import org.lamzin.eshop.dtoBuilder.ProductDtoBuilder;
 import org.lamzin.eshop.dtoBuilder.SubCategoryDtoBuilder;
+import org.lamzin.eshop.model.OrderCard;
 import org.lamzin.eshop.model.catalog.Category;
 import org.lamzin.eshop.model.catalog.Product;
 import org.lamzin.eshop.model.catalog.SubCategory;
+import org.lamzin.eshop.service.interfaces.CardService;
 import org.lamzin.eshop.service.interfaces.CategoryService;
 import org.lamzin.eshop.service.interfaces.ProductService;
 import org.lamzin.eshop.service.interfaces.SubcategoryService;
@@ -39,6 +43,10 @@ public class AdminController {
     ProductService productService;
     @Autowired
     ProductDtoBuilder productDtoBuilder;
+    @Autowired
+    CardService cardService;
+    @Autowired
+    OrderCardDtoBuilder orderCardDtoBuilder;
 
     private final double minPrice = 0.0;
     private final double maxPrice = 10000000.0;
@@ -61,6 +69,19 @@ public class AdminController {
             List<Category> categoryList = categoryService.getAllCategories();
             List<CategoryBasicDto> categories = categoryDtoBuilder.createBasicDtoList(categoryList);
             model.addObject("categories", categories);
+        }catch (Exception e){
+
+        }
+        return model;
+    }
+
+    @RequestMapping(value = "/order", method = RequestMethod.GET)
+    public ModelAndView getOrderManager(){
+        ModelAndView model = new ModelAndView("order");
+        try{
+            List<OrderCard> orderCards = cardService.getAllOrderCards();
+            List<OrderCardExtendedDto> orderCardsDtoList = orderCardDtoBuilder.buildListExtended(orderCards);
+            model.addObject("orders", orderCardsDtoList);
         }catch (Exception e){
 
         }

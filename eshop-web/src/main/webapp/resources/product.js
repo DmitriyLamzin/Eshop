@@ -178,7 +178,7 @@ function createProductList(data) {
             $('#page').attr({'max' : size/pageSize });
         }
         else{
-            $('#page').attr({'max' : size/pageSize + 1});
+            $('#page').attr({'max' : Math.floor(size/pageSize + 1)});
         }
     });
 }

@@ -77,14 +77,14 @@ public class CardController {
 
     @RequestMapping(
             method = RequestMethod.GET)
-    public ResponseEntity<Resources<OrderCardBasicDto>> getAllCards() {
+    public ResponseEntity<Resources<OrderCardExtendedDto>> getAllCards() {
         List<OrderCard> orderCards = cardService.getAllOrderCards();
-        List<OrderCardBasicDto> orderCardBasicDtos = orderCardDtoBuilder.buildListBasic(orderCards);
+        List<OrderCardExtendedDto> orderCardExtendedDtos = orderCardDtoBuilder.buildListExtended(orderCards);
         List<Link> linkList = new ArrayList<Link>();
         linkList.add(linkTo(methodOn(CardController.class).getAllCards()).withSelfRel());
 
-        Resources<OrderCardBasicDto> resources = new Resources<OrderCardBasicDto>(orderCardBasicDtos, linkList);
-        return new ResponseEntity<Resources<OrderCardBasicDto>>(resources, HttpStatus.OK);
+        Resources<OrderCardExtendedDto> resources = new Resources<OrderCardExtendedDto>(orderCardExtendedDtos, linkList);
+        return new ResponseEntity<Resources<OrderCardExtendedDto>>(resources, HttpStatus.OK);
     }
 
     @RequestMapping(

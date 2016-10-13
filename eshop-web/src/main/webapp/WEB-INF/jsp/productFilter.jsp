@@ -39,6 +39,6 @@
   <p><strong><spring:message code="lbl.page.number" /></strong></p>
   <form>
     <label>
-      <input id="page" type="number" value="1">
+      <input id="page" type="number" value="1" min="1" max="${pageNumbers}">
     </label>
   </form>
