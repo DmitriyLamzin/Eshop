@@ -9,6 +9,7 @@
 
        <global-method-security secured-annotations="enabled" />
 
+       <http pattern="/rest/card/**" security="none"/>
        <http use-expressions="true">
            <intercept-url pattern="/rest/**" method="POST" access="hasRole('ROLE_ADMIN')"/>
            <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>

@@ -38,21 +38,7 @@
 
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/main" >eShop</a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav navbar-right">
-        <li>
-          <a href="/bucket"><spring:message code="lbl.bucket"/></a>
-        </li>
-      </ul>
-    </div>
-
-  </div>
-</nav>
+<%@include file="header.jsp"%>
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-3 col-md-2 sidebar">
@@ -82,6 +68,6 @@
   </div>
   <button id="sendOrder" class="button"><spring:message code="lbl.send.order"/></button>
 </div>
-<script>createProductListForBucket()</script>
+<script>createOrderListForBucket()</script>
 </body>
 </html>

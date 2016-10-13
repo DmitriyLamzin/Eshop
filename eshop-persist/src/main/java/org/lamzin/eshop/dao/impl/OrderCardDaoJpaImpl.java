@@ -4,6 +4,7 @@ import org.lamzin.eshop.dao.interfaces.OrderCardDao;
 
 import org.lamzin.eshop.model.OrderCard;
 import org.lamzin.eshop.model.Person;
+import org.lamzin.eshop.model.catalog.Product;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.criteria.CriteriaBuilder;

@@ -1,5 +1,6 @@
 package org.lamzin.eshop.controller.rest;
 
+import org.lamzin.eshop.dao.exception.NotAllowedToDeleteException;
 import org.lamzin.eshop.dto.ValidationErrorDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -33,6 +34,15 @@ public class ControllerValidationErrorAdvice {
         return processFieldErrors(fieldErrors);
     }
 
+    @ExceptionHandler(NotAllowedToDeleteException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ValidationErrorDTO processDeleteError(NotAllowedToDeleteException ex) {
+        String fieldErrors = ex.getMessage();
+
+        return processFieldErrors(fieldErrors);
+    }
+
     private ValidationErrorDTO processFieldErrors(List<FieldError> fieldErrors) {
         ValidationErrorDTO dto = new ValidationErrorDTO();
 
@@ -40,6 +50,15 @@ public class ControllerValidationErrorAdvice {
             String localizedMessage = localizeMessage(fieldError.getCode());
             dto.addFieldError(fieldError.getField(), localizedMessage);
         }
+
+        return dto;
+    }
+
+    private ValidationErrorDTO processFieldErrors(String fieldError) {
+        ValidationErrorDTO dto = new ValidationErrorDTO();
+
+        dto.addFieldError(fieldError, fieldError);
+
 
         return dto;
     }

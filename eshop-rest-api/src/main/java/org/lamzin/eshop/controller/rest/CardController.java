@@ -8,6 +8,7 @@ import org.lamzin.eshop.dtoBuilder.OrderCardDtoBuilder;
 import org.lamzin.eshop.model.OrderCard;
 import org.lamzin.eshop.model.Person;
 import org.lamzin.eshop.service.interfaces.CardService;
+import org.lamzin.eshop.service.interfaces.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resources;
@@ -28,6 +29,8 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RestController
 @RequestMapping("/rest/card")
 public class CardController {
+    @Autowired
+    ProductService productService;
 
     @Autowired
     CardService cardService;
@@ -40,13 +43,41 @@ public class CardController {
 
     @RequestMapping(value = "/new",
             method = RequestMethod.GET)
-    public ResponseEntity<OrderCardExtendedDto> createOrderCard(){
+    public ResponseEntity<OrderCardExtendedDto> createOrderCard() {
         return new ResponseEntity<OrderCardExtendedDto>(new OrderCardExtendedDto(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/items/{id}",
+            method = RequestMethod.POST)
+    public ResponseEntity<OrderCardExtendedDto> addOrderItem(@PathVariable long id,
+                                                             @RequestParam(required = false, defaultValue = "1") int size,
+                                                             @RequestBody OrderCardExtendedDto orderCardToSend) {
+        OrderCard orderCard = dtoToOrderCardBuilder.buildOrderCard(orderCardToSend);
+        orderCard.addOrderItem(productService.getProductById(id), size);
+
+        return new ResponseEntity<OrderCardExtendedDto>(orderCardDtoBuilder.buildExtended(orderCard), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/items/{id}",
+            method = RequestMethod.DELETE)
+    public ResponseEntity<OrderCardExtendedDto> deleteOrderItem(@PathVariable long id, @RequestBody OrderCardExtendedDto orderCardToSend) {
+        OrderCard orderCard = dtoToOrderCardBuilder.buildOrderCard(orderCardToSend);
+        orderCard.removeOrderItem(productService.getProductById(id));
+
+        return new ResponseEntity<OrderCardExtendedDto>(orderCardDtoBuilder.buildExtended(orderCard), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{cardId}",
+            method = RequestMethod.DELETE)
+    public ResponseEntity<OrderCardExtendedDto> deleteOrderCard(@PathVariable long cardId) {
+
+        cardService.deletOrderCard(cardId);
+        return new ResponseEntity<OrderCardExtendedDto>(HttpStatus.OK);
     }
 
     @RequestMapping(
             method = RequestMethod.GET)
-    public ResponseEntity<Resources<OrderCardBasicDto>> getAllCards(){
+    public ResponseEntity<Resources<OrderCardBasicDto>> getAllCards() {
         List<OrderCard> orderCards = cardService.getAllOrderCards();
         List<OrderCardBasicDto> orderCardBasicDtos = orderCardDtoBuilder.buildListBasic(orderCards);
         List<Link> linkList = new ArrayList<Link>();
@@ -55,10 +86,11 @@ public class CardController {
         Resources<OrderCardBasicDto> resources = new Resources<OrderCardBasicDto>(orderCardBasicDtos, linkList);
         return new ResponseEntity<Resources<OrderCardBasicDto>>(resources, HttpStatus.OK);
     }
+
     @RequestMapping(
             method = RequestMethod.POST)
-    public ResponseEntity<OrderCardExtendedDto> sendOrderCard(@RequestBody @Valid OrderCardExtendedDto orderCardToSend){
-        if (orderCardToSend.getSize() == 0 ){
+    public ResponseEntity<OrderCardExtendedDto> sendOrderCard(@RequestBody @Valid OrderCardExtendedDto orderCardToSend) {
+        if (orderCardToSend.getSize() == 0) {
             return new ResponseEntity<OrderCardExtendedDto>(HttpStatus.BAD_REQUEST);
         }
 
@@ -69,20 +101,19 @@ public class CardController {
 
     @RequestMapping(value = "/{id}",
             method = RequestMethod.GET)
-    public OrderCardExtendedDto getOrderCard(@PathVariable long id){
+    public OrderCardExtendedDto getOrderCard(@PathVariable long id) {
         return orderCardDtoBuilder.buildExtended(cardService.getOrderCard(id));
     }
 
     @RequestMapping(value = "/{id}",
             method = RequestMethod.POST)
-    public void sendOrder(@PathVariable long id){
+    public void sendOrder(@PathVariable long id) {
         //TODO
     }
 
     @RequestMapping(value = "/{id}/person",
             method = RequestMethod.POST)
-    public Person addPerson(@PathVariable long id, @RequestBody Person person){
-            return cardService.addPerson(id, person);
+    public Person addPerson(@PathVariable long id, @RequestBody Person person) {
+        return cardService.addPerson(id, person);
     }
-
 }

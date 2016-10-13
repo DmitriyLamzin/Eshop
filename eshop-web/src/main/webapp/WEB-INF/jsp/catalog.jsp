@@ -37,38 +37,12 @@
 
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="/admin" >eShop admin tool</a>
-    </div>
-      <div id="navbar" class="navbar-collapse collapse">
-          <ul class="nav navbar-nav navbar-right">
-              <security:authorize access="hasRole('ROLE_ADMIN')">
-              <li>
-                  <a href="/logout"><spring:message code="lbl.logout"/></a>
-              </li>
-              </security:authorize>
-          </ul>
-      </div>
-  </div>
-</nav>
+<%@include file="header.jsp"%>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-3 col-md-2 sidebar">
-      <ul id="admin_tools" class="nav nav-sidebar">
-          <li>
-            <a class="admin_tool" href="/admin/catalog"><spring:message code="lbl.catalog.sections.manager" /></a>
-          </li>
-        <li>
-          <a class="admin_tool" href="/admin/products"><spring:message code="lbl.product.manager" /></a>
-        </li>
-        <li>
-          <a class="admin_tool" href="/admin/order"><spring:message code="lbl.order.manager" /></a>
-
-        </li>
-      </ul>
-    </div>
+      <div class="col-sm-3 col-md-2 sidebar">
+          <%@include file="adminMenu.jsp"%>
+      </div>
     <div class="col-sm-9 col-md-10 main">
       <h1 class="page-header"><spring:message code="lbl.catalog.sections.manager" /></h1>
       <button id="addCategoryButton"><spring:message code="lbl.add.category" /></button><br><br>

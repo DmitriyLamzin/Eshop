@@ -40,6 +40,14 @@ public class MainViewController {
     @Autowired
     private ProductDtoBuilder productDtoBuilder;
 
+
+    private final double minPrice = 0.0;
+    private final double maxPrice = 10000000.0;
+    private final ArrayList<String> producersList = new ArrayList<String>();
+    private final String sortBy = "price";
+    private final int firstPage = 1;
+    private final int pageSize = 20;
+
     @RequestMapping(
             method = RequestMethod.GET)
     public ModelAndView getAdminPage(){
@@ -51,12 +59,26 @@ public class MainViewController {
             List<SubCategory> subCategoryList = subcategoryService.getSubcategories(firstCategory.getCategoryId());
             List<Product> productList = productService.getMultipleProducts(subCategoryList.get(0).getSubCategoryId(),
                     categoryList.get(0).getCategoryId(),
-                    0.0,
-                    1000000.0,
-                    new ArrayList<String>(),
-                    "price",
-                    1,
-                    20);
+                    minPrice,
+                    maxPrice,
+                    producersList,
+                    sortBy,
+                    firstPage,
+                    pageSize);
+
+            long querySize = productService.getSize(subCategoryList.get(0).getSubCategoryId(),
+                    categoryList.get(0).getCategoryId(),
+                    minPrice,
+                    maxPrice,
+                    producersList);
+
+            long pageNumbers = 0;
+
+            if (querySize % pageSize != 0){
+                pageNumbers = querySize/pageSize + 1;
+            }
+            else
+                pageNumbers = querySize/pageSize;
 
             List<CategoryBasicDto> categories = categoryDtoBuilder.createBasicDtoList(categoryList);
             List<SubcategoryBasicDto> subCategories = subCategoryDtoBuilder.createListBasicDto(firstCategory.getCategoryId(),
@@ -64,7 +86,11 @@ public class MainViewController {
             List<ProductBasicDto> products =  productDtoBuilder.createListBasicDto(productList);
             modelandview.addObject("categories", categories)
                     .addObject("subCategories", subCategories)
-                    .addObject("products", products);
+                    .addObject("products", products)
+                    .addObject("pageNumbers", pageNumbers);
+
+
+
         }catch (Exception e){
 
         }

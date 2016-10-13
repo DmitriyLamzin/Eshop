@@ -31,38 +31,12 @@
 
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/admin" >eShop admin tool</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <security:authorize access="hasRole('ROLE_ADMIN')">
-                    <li>
-                        <a href="/logout"><spring:message code="lbl.logout"/></a>
-                    </li>
-                </security:authorize>
-            </ul>
-        </div>
-    </div>
-</nav>
+<%@include file="header.jsp"%>
 <div class="container-fluid">
     <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-            <ul id="admin_tools" class="nav nav-sidebar">
-                <li>
-                    <a class="admin_tool" href="/admin/catalog"><spring:message code="lbl.catalog.sections.manager" /></a>
-                </li>
-                <li>
-                    <a class="admin_tool" href="/admin/products"><spring:message code="lbl.product.manager" /></a>
-                </li>
-                <li>
-                    <a class="admin_tool" href="/admin/order"><spring:message code="lbl.order.manager" /></a>
-
-                </li>
-            </ul><br><br>
-            <div id="productFilter">
+            <%@include file="adminMenu.jsp"%>
+            <br><br>
                 <p><strong><spring:message code="lbl.choose.category" /></strong></p>
                 <form>
                     <p>
@@ -98,42 +72,8 @@
                         </label>
                     </p>
                 </form>
-
-                <p><strong><spring:message code="lbl.choose.price.range" /></strong></p>
-                <form>
-                    <p>
-                        <label>
-                            <input id="minPrice" type="number" value="0"> -
-                        </label>
-                        <label>
-                            <input id="maxPrice" type="number" value="100000">
-                        </label>
-                    </p>
-                </form>
-                <p><strong><spring:message code="lbl.order.by" /></strong></p>
-                <form id="orderBy">
-                    <label>
-                        <input type="radio" name="radioName" value="producer" /> <spring:message code="lbl.producer" /> <br />
-                        <input type="radio" name="radioName" value="price" /> <spring:message code="lbl.price" /> <br />
-                        <input type="radio" name="radioName" value="id" checked/> <spring:message code="lbl.id" /> <br />
-                    </label>
-                </form>
-
-                <p><strong><spring:message code="lbl.page.size" /></strong></p>
-                <form id="pageSize">
-                    <label>
-                        <input type="radio" name="pageSize" value=5 /> 5 <br />
-                        <input type="radio" name="pageSize" value=10 /> 10 <br />
-                        <input type="radio" name="pageSize" value=20 checked/> 20 <br />
-                    </label>
-                </form>
-
-                <p><strong><spring:message code="lbl.page.number" /></strong></p>
-                <form>
-                    <label>
-                        <input id="page" type="number" value="1">
-                    </label>
-                </form>
+            <div id="productFilter">
+                <%@include file="productFilter.jsp"%>
             </div>
         </div>
         <div class="col-sm-9 col-md-10 main">

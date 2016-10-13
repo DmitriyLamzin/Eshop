@@ -107,7 +107,7 @@ function createProductList(data) {
 
         var addToCardButton = document.createElement("button");
         addToCardButton.onclick = function () {
-            addProductToCard(product._links.self.href);
+            addProductToCard(product.productId);
         };
         addToCardButton.appendChild(document.createTextNode(localizedMessages['lbl.to.bucket']));
 
@@ -116,6 +116,16 @@ function createProductList(data) {
         row.appendChild(col);
         $productList.append(row);
 
-    })
+    });
+
+    loadAllSubCategories(data._links.total_size.href, categoryId, function(size){
+        var pageSize = pathParams['pageSize'];
+        if (size % pageSize === 0){
+            $('#page').attr({'max' : size/pageSize });
+        }
+        else{
+            $('#page').attr({'max' : size/pageSize + 1});
+        }
+    });
 }
 

@@ -4,6 +4,7 @@ import org.lamzin.eshop.dao.interfaces.GenericDao;
 import org.lamzin.eshop.dao.interfaces.OrderCardDao;
 import org.lamzin.eshop.dao.interfaces.ProductDao;
 import org.lamzin.eshop.model.OrderCard;
+import org.lamzin.eshop.model.OrderItem;
 import org.lamzin.eshop.model.Person;
 import org.lamzin.eshop.model.catalog.Product;
 import org.lamzin.eshop.service.interfaces.CardService;
@@ -42,6 +43,12 @@ public class CardServiceImpl implements CardService {
         }else {
             orderCard.setPerson(personDao.findById(orderCard.getPersonId()));
         }
+        OrderCard savedCard = dao.save(orderCard);
+        List<OrderItem> orderItemList = savedCard.getOrderItems();
+        for (OrderItem orderItem : orderItemList){
+            Product product = productDao.findById(orderItem.getProduct().getId());
+            product.addObserver(savedCard);
+        }
         return dao.save(orderCard);
     }
 
@@ -49,25 +56,30 @@ public class CardServiceImpl implements CardService {
         return dao.findById(id);
     }
 
-    public void deletOrderCard(long Id){
-        dao.delete(Id);
+    public void deletOrderCard(long id){
+        OrderCard orderCard = dao.findById(id);
+        List<OrderItem> orderItemList = orderCard.getOrderItems();
+        for (OrderItem orderItem : orderItemList){
+            productDao.findById(orderItem.getProduct().getId()).removeObserver(orderCard);
+        }
+        dao.delete(id);
     }
 
-    public OrderCard addProductToCard(long cardId, long productId){
+    public OrderCard addProductToCard(long cardId, long productId, int size){
         OrderCard card = dao.findById(cardId);
-        card.addProduct(productDao.findById(productId));
+        card.addOrderItem(productDao.findById(productId), size);
 
         return card;
     }
 
     public OrderCard removeProductFromCard(long cardId, long productId){
         OrderCard card = dao.findById(cardId);
-        card.removeProduct(productDao.findById(productId));
+        card.removeOrderItem(productDao.findById(productId));
         return card;
     }
 
-    public List<Product> getOrders(long cardId){
-        return dao.findById(cardId).getProducts();
+    public List<OrderItem> getOrderItems(long cardId){
+        return dao.findById(cardId).getOrderItems();
     }
 
 

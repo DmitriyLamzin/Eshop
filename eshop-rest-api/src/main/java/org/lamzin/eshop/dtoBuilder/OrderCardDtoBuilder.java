@@ -4,6 +4,7 @@ import org.lamzin.eshop.controller.rest.CardController;
 
 import org.lamzin.eshop.dto.OrderCardBasicDto;
 import org.lamzin.eshop.dto.OrderCardExtendedDto;
+import org.lamzin.eshop.dto.OrderItemDto;
 import org.lamzin.eshop.dto.ProductBasicDto;
 import org.lamzin.eshop.model.OrderCard;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import java.util.List;
 @Service
 public class OrderCardDtoBuilder {
     @Autowired
-    ProductDtoBuilder productDtoBuilder;
+    OrderItemDtoBuilter orderItemDtoBuilter;
 
     public OrderCardBasicDto buildBasic(OrderCard orderCard){
 
@@ -44,8 +45,10 @@ public class OrderCardDtoBuilder {
     }
 
     public OrderCardExtendedDto buildExtended(OrderCard orderCard){
-        List<ProductBasicDto> productBasicDtoList = productDtoBuilder.createListBasicDto(orderCard.getProducts());
-        OrderCardExtendedDto orderCardExtendedDto = new OrderCardExtendedDto(orderCard, productBasicDtoList);
+        OrderCardExtendedDto orderCardExtendedDto = new OrderCardExtendedDto(orderCard);
+
+        List<OrderItemDto> orderItemDtos = orderItemDtoBuilter.createListBasicDto(orderCard.getOrderItems(), orderCardExtendedDto);
+        orderCardExtendedDto.setOrderItems(orderItemDtos);
         orderCardExtendedDto.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(CardController.class).
                 getOrderCard(orderCard.getId())).
                 withSelfRel());

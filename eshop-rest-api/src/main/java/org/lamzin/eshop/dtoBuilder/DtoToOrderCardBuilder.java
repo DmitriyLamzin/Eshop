@@ -14,7 +14,7 @@ public class DtoToOrderCardBuilder {
 
 
     @Autowired
-    DtoToProductBuilder dtoToProductBuilder;
+    DtoToOrderItem dtoToOrderItem;
 
     public OrderCard buildOrderCard(OrderCardExtendedDto orderCardExtendedDto){
         OrderCard orderCard = new OrderCard();
@@ -22,7 +22,7 @@ public class DtoToOrderCardBuilder {
         person.setEmail(orderCardExtendedDto.getPersonEmail());
 
         orderCard.setPerson(person);
-        orderCard.setProducts(dtoToProductBuilder.buildProductList(orderCardExtendedDto.getOrderedProducts()));
+        orderCard.setOrderItems(dtoToOrderItem.buildOrderItems(orderCardExtendedDto.getOrderItems()));
         return orderCard;
     }
 }

@@ -15,21 +15,29 @@ import java.util.List;
 public class OrderCardExtendedDto extends ResourceSupport {
 
     private long orderCardId;
-    private List<ProductBasicDto> orderedProducts = new ArrayList<ProductBasicDto>();
+    private List<OrderItemDto> orderItems = new ArrayList<OrderItemDto>();
     private int size;
     private double totalPrice = 0;
     @Email @NotEmpty
     private String personEmail = "";
 
-
     public OrderCardExtendedDto() {
     }
 
-    public OrderCardExtendedDto(OrderCard orderCard, List<ProductBasicDto> productBasicDtoList){
+    public OrderCardExtendedDto(OrderCard orderCard) {
+        this.orderCardId = orderCard.getId();
+        this.size = orderCard.getOrderSize();
+        this.totalPrice = orderCard.getTotalPrice();
+        if (orderCard.getPerson() != null)
+            this.personEmail = orderCard.getPersonId();
+        else this.personEmail = "unknown";
+    }
+
+    public OrderCardExtendedDto(OrderCard orderCard, List<OrderItemDto> orderItemDtos){
 
         this.orderCardId = orderCard.getId();
-        this.orderedProducts.addAll(productBasicDtoList);
-        this.size = orderedProducts.size();
+        this.orderItems.addAll(orderItemDtos);
+        this.size = orderItems.size();
         this.totalPrice = orderCard.getTotalPrice();
         if (orderCard.getPerson() != null)
             this.personEmail = orderCard.getPersonId();
@@ -37,13 +45,16 @@ public class OrderCardExtendedDto extends ResourceSupport {
 
     }
 
+    public void setOrderItems(List<OrderItemDto> orderItems) {
+        this.orderItems = orderItems;
+    }
 
     public long getOrderCardId() {
         return orderCardId;
     }
 
-    public List<ProductBasicDto> getOrderedProducts() {
-        return orderedProducts;
+    public List<OrderItemDto> getOrderItems() {
+        return orderItems;
     }
 
     public int getSize() {

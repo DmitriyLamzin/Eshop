@@ -1,6 +1,7 @@
 package org.lamzin.eshop.service.interfaces;
 
 import org.lamzin.eshop.model.OrderCard;
+import org.lamzin.eshop.model.OrderItem;
 import org.lamzin.eshop.model.Person;
 import org.lamzin.eshop.model.catalog.Product;
 
@@ -17,11 +18,11 @@ public interface CardService {
 
     void deletOrderCard(long Id);
 
-    OrderCard addProductToCard(long cardId, long productId);
+    OrderCard addProductToCard(long cardId, long productId, int size);
 
     OrderCard removeProductFromCard(long cardId, long productId);
 
-    List<Product> getOrders(long cardId);
+    List<OrderItem> getOrderItems(long cardId);
 
     List<OrderCard> getAllOrderCards();
 

@@ -4,6 +4,7 @@ import org.lamzin.eshop.model.catalog.Category;
 import org.lamzin.eshop.model.catalog.Product;
 import org.lamzin.eshop.model.catalog.SubCategory;
 import org.lamzin.eshop.dao.interfaces.ProductDao;
+import org.lamzin.eshop.dao.exception.NotAllowedToDeleteException;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.Query;
@@ -83,7 +84,25 @@ public class ProductDaoJpaImpl extends GenericDaoJpaImpl<Product, Long> implemen
     }
 
     public void delete(String categoryId, String subcategoryId, long productId) {
-        em.remove(findById(categoryId, subcategoryId, productId));
+
+        Product product = findById(categoryId, subcategoryId, productId);
+        if (!product.hasObservers())
+            em.remove(product);
+        else {
+            throw new NotAllowedToDeleteException("The Product is now ordered by " + product.getObserverItems());
+        }
+
+    }
+
+    @Override
+    public void delete(Long entityId) {
+        Product product = findById(entityId);
+        if (!product.hasObservers())
+            em.remove(product);
+        else {
+            throw new NotAllowedToDeleteException("The Product is now ordered by " + product.getObserverItems());
+        }
+
     }
 
     public Long count(String subCategory,

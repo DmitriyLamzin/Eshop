@@ -8,7 +8,7 @@ $(document).ready(function() {
     $body.on('click', '#sendOrder', function () {
         var bucket = getBucket();
         bucket.personEmail = $('#userEmail').val();
-        if (bucket.orderedProducts.length < 1){
+        if (bucket.orderItems.length < 1){
             alert("there is no product in the bucket");
         } else{
             $.ajax({
@@ -124,56 +124,73 @@ function saveBucket(data){
 }
 function addProductToCard(productId){
     var bucket = getBucket();
+    var url = getBucketUrl + '/items/' + productId;
 
-    getEntity(productId, function(data){
-        bucket.orderedProducts.push(data);
-        bucket.size++;
-        bucket.totalPrice += data.price;
-
-        saveBucket(bucket);
-        console.log(bucket)
+    sendEntity(url, bucket, function(data){
+        saveBucket(data);
+        console.log(data)
     });
 
 
 }
 
-function removeFromCard(product) {
+function removeFromCard(url) {
     var bucket = getBucket();
-    bucket.orderedProducts.splice(productList.indexOf(product), 1);
-    bucket.size--;
-    bucket.totalPrice -= product.price;
-    console.log(bucket);
-    saveBucket(bucket);
-    createProductListForBucket();
+    $.ajax({
+        url: url, // url where to submit the request
+        headers: {
+            'Authorization':'Basic YWRtaW46cGFzcw==',
+            'Content-Type':'application/hal+json'
+        },
+        type: "DELETE", // type of action POST || GET
+        //dataType: 'hal+json', // data type
+        data: JSON.stringify(bucket),
+        //async: false,
+        success: function(data){
+            console.log(data);
+            saveBucket(data);
+            createOrderListForBucket();
+        },
+        error: function (xhr) {
+            console.log(xhr);
+        }
+    });
 }
-function createProductListForBucket() {
+
+
+function createOrderListForBucket() {
     var $productList = $('.container');
 
-    productList = getBucket().orderedProducts;
+    var orderItems = getBucket().orderItems;
 
-    console.log(productList);
+    console.log(orderItems);
 
 
     $productList.empty();
-    $.each(productList, function(i, product) {
+    $.each(orderItems, function(i, orderItem) {
         var row = document.createElement('div');
         row.className = 'row';
         var col = document.createElement('div');
         col.className = 'col-lg-7';
         var header = document.createElement('h3');
-        header.appendChild(document.createTextNode(product.id + " "+ product.name));
+        header.appendChild(document.createTextNode(orderItem.product.productId + " "+ orderItem.product.name));
 
         var price = document.createElement('p');
-        price.appendChild(document.createTextNode(localizedMessages['lbl.price'] + " " + product.price));
+        price.appendChild(document.createTextNode(orderItem.product.price + 'X' + orderItem.size));
         var productEntity = document.createElement('p');
-        productEntity.appendChild(document.createTextNode(localizedMessages['lbl.producer'] + " " + product.producer));
+        productEntity.appendChild(document.createTextNode(localizedMessages['lbl.producer'] + " " + orderItem.product.producer));
         col.appendChild(header);
         col.appendChild(productEntity);
         col.appendChild(price);
 
+        var orderItemPrice = document.createElement('p');
+        orderItemPrice.appendChild(document.createTextNode(localizedMessages['lbl.price'] + " " + orderItem.price));
+        col.appendChild(orderItemPrice);
+
+
         var removeFromCardButton = document.createElement("button");
         removeFromCardButton.onclick = function () {
-            removeFromCard(product);
+            removeFromCard(orderItem._links.self.href);
         };
         removeFromCardButton.appendChild(document.createTextNode(localizedMessages['lbl.from.bucket']));
 

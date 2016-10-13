@@ -10,7 +10,7 @@ function getUrl(){
     pathParams['orderBy'] = $('input[name=radioName]:checked', '#orderBy').val();
     pathParams['pageSize'] = $('input[name=pageSize]:checked', '#pageSize').val();
     pathParams['page'] = $('#page').val();
-    //pathParams['producer'] = "_";
+    //pathParams['producer'] = "_"; 
     categoryId = $('#selectCategory').val();
     subCategoryId = $('#selectSubcategory').val();
     var url = '/rest/' + categoryId + '/subcategories/' + subCategoryId + '/products';
@@ -168,7 +168,18 @@ function createProductList(data) {
 
 
         $productList.append(document.createElement('br'));
-    });
 
+
+
+    });
+    loadAllSubCategories(data._links.total_size.href, categoryId, function(size){
+        var pageSize = pathParams['pageSize'];
+        if (size % pageSize === 0){
+            $('#page').attr({'max' : size/pageSize });
+        }
+        else{
+            $('#page').attr({'max' : size/pageSize + 1});
+        }
+    });
 }
 

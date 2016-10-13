@@ -19,6 +19,7 @@
   <link href="${mainCss}" rel="stylesheet" />
 </head>
 <body>
+<%@include file="header.jsp"%>
 <div class="container">
   <div class="row">
     <div class="col-sm-6 col-md-4 col-md-offset-4">
@@ -32,6 +33,7 @@
           <button class="btn btn-lg btn-primary btn-block" type="submit">
             <spring:message code="lbl.login" /></button>
 
+      </div>
     </div>
   </div>
 </div>

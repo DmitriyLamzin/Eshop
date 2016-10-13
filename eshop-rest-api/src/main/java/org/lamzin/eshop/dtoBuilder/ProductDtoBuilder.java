@@ -24,6 +24,15 @@ public class ProductDtoBuilder {
         return p;
     }
 
+    public ProductBasicDto createBasicDto(Product product) {
+        ProductBasicDto p = new ProductBasicDto(product);
+        p.add(ControllerLinkBuilder.linkTo(ControllerLinkBuilder.methodOn(ProductController.class).
+                getProductById(product.getId())).
+                withSelfRel());
+        return p;
+    }
+
+
     public List<ProductBasicDto> createListBasicDto(List<Product> products) {
         List<ProductBasicDto> productBasicDtos = new ArrayList<ProductBasicDto>();
         for (Product product : products) {

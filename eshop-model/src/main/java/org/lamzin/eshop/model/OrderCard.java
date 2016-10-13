@@ -1,11 +1,11 @@
 package org.lamzin.eshop.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.lamzin.eshop.model.catalog.Product;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -14,15 +14,12 @@ import java.util.List;
 @Entity
 public class OrderCard {
 
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue
     private long id;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JsonIgnore
-    private List<Product> products = new ArrayList<Product>();
-
-    @Transient
-    private double totalPrice = 0;
+    @ElementCollection(fetch = FetchType.EAGER)
+    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
     @ManyToOne(targetEntity = Person.class, cascade = {CascadeType.MERGE, CascadeType.REFRESH})
     private Person person;
@@ -30,48 +27,54 @@ public class OrderCard {
     public OrderCard() {
     }
 
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
-        calculatePrice();
-    }
-
     @JsonProperty
-    public int getOrderSize(){
-        return products.size();
+    public int getOrderSize() {
+        int size = 0;
+        for (OrderItem orderItem : orderItems){
+            size += orderItem.getSize();
+        }
+        return size;
     }
 
     public double getTotalPrice() {
-        calculatePrice();
-        return totalPrice;
+        double price = 0.0;
+        for (OrderItem orderItem : orderItems) {
+            price += orderItem.getPrice();
+        }
+        return price;
     }
 
-    private void calculatePrice(){
-        this.totalPrice = 0;
-        if (products.size() > 0) {
-            for (Product p : products) {
-                this.totalPrice += p.getPrice();
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void addOrderItem(Product product, int size) {
+        for (OrderItem orderItem : orderItems) {
+            if (orderItem.getProduct().equals(product)) {
+                orderItem.setSize(orderItem.getSize() + size);
+                return;
             }
         }
+        orderItems.add(new OrderItem(product, size));
+
     }
 
-    public void setTotalPrice(double price) {
-        this.totalPrice = price;
-    }
-
-    public void addProduct(Product product){
-        products.add(product);
-        calculatePrice();
-    }
-
-    public void removeProduct(Product product){
-        products.remove(product);
-        calculatePrice();
-        totalPrice -= product.getPrice();
-
+    public void removeOrderItem(Product product) {
+        Iterator<OrderItem> iterator = orderItems.iterator();
+        while (iterator.hasNext()){
+            OrderItem orderItem = iterator.next();
+            if (orderItem.getProduct().equals(product)) {
+                if (orderItem.getSize() > 1){
+                    orderItem.remove();
+                }else
+                    iterator.remove();
+                return;
+            }
+        }
     }
 
     public long getId() {
@@ -102,20 +105,14 @@ public class OrderCard {
         OrderCard orderCard = (OrderCard) o;
 
         if (id != orderCard.id) return false;
-        if (Double.compare(orderCard.totalPrice, totalPrice) != 0) return false;
-        if (products != null ? !products.equals(orderCard.products) : orderCard.products != null) return false;
+        if (orderItems != null ? !orderItems.equals(orderCard.orderItems) : orderCard.orderItems != null) return false;
         return !(person != null ? !person.equals(orderCard.person) : orderCard.person != null);
 
     }
-
     @Override
     public int hashCode() {
-        int result;
-        long temp;
-        result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (products != null ? products.hashCode() : 0);
-        temp = Double.doubleToLongBits(totalPrice);
-        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (orderItems != null ? orderItems.hashCode() : 0);
         result = 31 * result + (person != null ? person.hashCode() : 0);
         return result;
     }

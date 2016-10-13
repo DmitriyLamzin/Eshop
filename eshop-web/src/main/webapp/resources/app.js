@@ -55,7 +55,7 @@ function loadAllCategories(callback){
         url: '/rest', // url where to submit the request
         headers: {
             'Authorization':'Basic YWRtaW46cGFzcw==',
-            'Content-Type':'application/hal+json',
+                'Content-Type':'application/hal+json',
             'Accept' : 'application/hal+json'
         },
         type: "GET", // type of action POST || GET
@@ -72,11 +72,11 @@ function loadAllSubCategories(url,categoryId, callback){
         url: url, // url where to submit the request
         headers: {
             'Authorization':'Basic YWRtaW46cGFzcw==',
-            'Content-Type':'application/hal+json',
-            'Accept' : 'application/hal+json'
+            'Content-Type':'application/hal+json'
+            //'Accept' : 'application/hal+json'
         },
         type: "GET", // type of action POST || GET
-        dataType: 'json', // data type
+        //dataType: 'json', // data type
         success: function(data){
             callback(data, categoryId);
         },
@@ -153,6 +153,12 @@ function deleteCategory(url, callback){
         success: callback,
         error: function (xhr) {
             console.log(xhr);
+            var fieldErrorDTOs = xhr.responseJSON.fieldErrorDTOs;
+            var alertText ="";
+            $.each(fieldErrorDTOs, function(i, object){
+                alertText += object.message;
+            });
+            alert(alertText);
         }
     })
 }
