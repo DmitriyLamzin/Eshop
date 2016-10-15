@@ -2,10 +2,21 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>eshop</groupId>
-	<artifactId>eshop</artifactId>
-	<packaging>war</packaging>
-	<version>1.0</version>
+	<artifactId>org.lamzin.eshop</artifactId>
+	<version>1.1-SNAPSHOT</version>
 	<name>eshop</name>
+	<modules>
+		<module>eshop-aspect</module>
+		<module>eshop-rest-api</module>
+		<module>eshop-web</module>
+		<module>eshop-model</module>
+		<module>eshop-persist</module>
+		<module>eshop-service-interface</module>
+		<module>eshop-validation-api</module>
+		<module>eshop-service-impl</module>
+	</modules>
+	<packaging>pom</packaging>
+
 	<repositories>
 		<repository>
 			<id>eap</id>
@@ -52,6 +63,57 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- my dependencies-->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>4.2.4.RELEASE</version>
+		</dependency>
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.dbunit</groupId>
+			<artifactId>dbunit</artifactId>
+			<version>2.5.1</version>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<artifactId>junit</artifactId>
+					<groupId>junit</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>org.slf4j</artifactId>
+					<groupId>slf4j-api</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>com.github.springtestdbunit</groupId>
+			<artifactId>spring-test-dbunit</artifactId>
+			<version>1.2.1</version>
+			<scope>test</scope>
+
+		</dependency>
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.12</version>
+		</dependency>
+
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.14</version>
+		</dependency>
 	</dependencies>
 	<profiles>
 		<profile>
@@ -71,7 +133,7 @@
 						<version>2.1.1</version>
 						<configuration>
 							<outputDirectory>webapps</outputDirectory>
-							<warName>ROOT</warName>
+							<warName>eshop-web</warName>
 						</configuration>
 					</plugin>
 				</plugins>
