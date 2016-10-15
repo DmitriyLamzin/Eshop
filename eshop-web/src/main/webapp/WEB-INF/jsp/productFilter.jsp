@@ -1,4 +1,6 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ page isELIgnored="false" %>
+
 <%--
   Created by IntelliJ IDEA.
   User: Dmitriy
