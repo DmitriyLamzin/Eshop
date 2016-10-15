@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+       <context:annotation-config />
+       <context:component-scan base-package="org.lamzin.eshop.viewcontroller" />
+
+       <bean class="org.lamzin.eshop.HateoasContext$HypermediaConfig" />
+
+       <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+              <property name="basenames" value="classpath:messages, classpath:errors" />
+              <property name="defaultEncoding" value="UTF-8" />
+       </bean>
+
+       <mvc:interceptors>
+              <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
+                     <property name="paramName" value="lang" />
+              </bean>
+       </mvc:interceptors>
+
+
+       <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver">
+              <property name="defaultLocale" value="en" />
+              <property name="cookieName" value="eShopLocaleCookie" />
+              <property name="cookieMaxAge" value="3600" />
+       </bean>
+
+
+       <mvc:view-resolvers>
+              <mvc:jsp prefix="/WEB-INF/jsp/" suffix=".jsp"/>
+       </mvc:view-resolvers>
+       <mvc:resources mapping="/resources/**" location="/resources/" />
+       <mvc:annotation-driven validator="validator"/>
+       <mvc:default-servlet-handler />
+
+       <mvc:view-controller path="/login" view-name="login" />
+
+       <import resource="classpath:applicationContext-rest-api.xml"/>
+       <!--<import resource="classpath:applicationContext-persist.xml"/>-->
+       <!--<import resource="classpath:security.xml"/>-->
+
+</beans>

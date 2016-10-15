@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:beans="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+       <global-method-security secured-annotations="enabled" />
+
+       <http pattern="/rest/card/**" security="none"/>
+       <http use-expressions="true">
+           <intercept-url pattern="/rest/**" method="POST" access="hasRole('ROLE_ADMIN')"/>
+           <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+           <anonymous username="guest" granted-authority="ROLE_ANONYMOUS"/>
+           <form-login login-page="/login"
+                       default-target-url="/main"
+                       authentication-failure-url="/login?error=true"
+                       login-processing-url="/perform_login"
+                   always-use-default-target="false"/>
+           <csrf disabled="true" />
+           <logout logout-url="/logout"
+                   logout-success-url="/main"/>
+       </http>
+
+       <authentication-manager alias="authenticationManager">
+              <authentication-provider user-service-ref="customUserDetailsService" />
+       </authentication-manager>
+
+    <!--<beans:import resource="classpath:applicationContext-service-impl.xml" />-->
+</beans:beans>
