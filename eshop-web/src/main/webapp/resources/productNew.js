@@ -81,6 +81,8 @@ $(document).ready(function() {
 
 function createProductList(data) {
     var $productList = $('.container');
+    $productList.empty();
+
     console.log(data);
 
     productList = data._embedded.productBasicDtoList;
