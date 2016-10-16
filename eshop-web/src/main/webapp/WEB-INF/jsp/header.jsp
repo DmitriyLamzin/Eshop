@@ -35,6 +35,9 @@
         <li>
           <a href="/bucket"><spring:message code="lbl.bucket"/></a>
         </li>
+        <li>
+          <a href="?lang=ru">ru</a> | <a href="?lang=en">en</a>
+        </li>
       </ul>
     </div>
 
