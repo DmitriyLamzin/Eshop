@@ -29,13 +29,13 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class CategoryController {
 
     @Autowired
-    CategoryDtoBuilder categoryDtoWrapper;
+    private CategoryDtoBuilder categoryDtoWrapper;
 
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
 
     @Autowired
-    CategoryDao categoryDao;
+    private CategoryDao categoryDao;
 
 
     @RequestMapping(

@@ -29,13 +29,13 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 public class SubCategoryController {
 
     @Autowired
-    SubCategoryDtoBuilder subCategoryDtoWrapper;
+    private SubCategoryDtoBuilder subCategoryDtoWrapper;
 
     @Autowired
-    SubcategoryService subcategoryService;
+    private SubcategoryService subcategoryService;
 
     @Autowired
-    SubCategoryDao subCategoryDao;
+    private SubCategoryDao subCategoryDao;
 
     @RequestMapping(method = RequestMethod.GET)
     public Resources<SubcategoryBasicDto> getAllSubCategories(@PathVariable String categoryId){

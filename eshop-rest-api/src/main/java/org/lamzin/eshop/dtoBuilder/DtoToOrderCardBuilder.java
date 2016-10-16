@@ -14,7 +14,7 @@ public class DtoToOrderCardBuilder {
 
 
     @Autowired
-    DtoToOrderItem dtoToOrderItem;
+    private DtoToOrderItem dtoToOrderItem;
 
     public OrderCard buildOrderCard(OrderCardExtendedDto orderCardExtendedDto){
         OrderCard orderCard = new OrderCard();

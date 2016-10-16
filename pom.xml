@@ -136,7 +136,6 @@
 							<warName>ROOT</warName>
 						</configuration>
 					</plugin>
-
 				</plugins>
 			</build>
 		</profile>

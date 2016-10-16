@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 public class OrderCardDtoBuilder {
     @Autowired
-    OrderItemDtoBuilter orderItemDtoBuilter;
+    private OrderItemDtoBuilter orderItemDtoBuilter;
 
     public OrderCardBasicDto buildBasic(OrderCard orderCard){
 

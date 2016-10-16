@@ -16,7 +16,7 @@ import java.util.List;
 public class DtoToOrderItem {
 
     @Autowired
-    ProductService productService;
+    private ProductService productService;
     public List<OrderItem> buildOrderItems(List<OrderItemDto> orderItems) {
         List<OrderItem> orderItemList = new ArrayList<OrderItem>();
         for (OrderItemDto orderItemDto : orderItems){

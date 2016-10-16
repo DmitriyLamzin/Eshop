@@ -32,21 +32,21 @@ import java.util.List;
 @RequestMapping("/admin")
 public class AdminController {
     @Autowired
-    CategoryService categoryService;
+    private CategoryService categoryService;
     @Autowired
-    CategoryDtoBuilder categoryDtoBuilder;
+    private CategoryDtoBuilder categoryDtoBuilder;
     @Autowired
-    SubcategoryService subcategoryService;
+    private SubcategoryService subcategoryService;
     @Autowired
-    SubCategoryDtoBuilder subCategoryDtoBuilder;
+    private SubCategoryDtoBuilder subCategoryDtoBuilder;
     @Autowired
-    ProductService productService;
+    private ProductService productService;
     @Autowired
-    ProductDtoBuilder productDtoBuilder;
+    private ProductDtoBuilder productDtoBuilder;
     @Autowired
-    CardService cardService;
+    private CardService cardService;
     @Autowired
-    OrderCardDtoBuilder orderCardDtoBuilder;
+    private OrderCardDtoBuilder orderCardDtoBuilder;
 
     private final double minPrice = 0.0;
     private final double maxPrice = 10000000.0;

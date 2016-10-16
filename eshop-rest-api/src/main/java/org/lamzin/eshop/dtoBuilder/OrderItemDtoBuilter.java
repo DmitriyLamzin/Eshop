@@ -18,7 +18,7 @@ import java.util.List;
 public class OrderItemDtoBuilter {
 
     @Autowired
-    ProductDtoBuilder productDtoBuilder;
+    private ProductDtoBuilder productDtoBuilder;
 
     public List<OrderItemDto> createListBasicDto(List<OrderItem> orderItems, OrderCardExtendedDto orderCardExtendedDto) {
         List<OrderItemDto> orderItemDtos = new LinkedList<OrderItemDto>();

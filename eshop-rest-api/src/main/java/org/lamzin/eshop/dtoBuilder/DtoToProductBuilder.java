@@ -16,7 +16,7 @@ import java.util.List;
 public class DtoToProductBuilder {
 
     @Autowired
-    ProductDao productDao;
+    private ProductDao productDao;
 
     public List<Product> buildProductList(List<ProductBasicDto> orderedProducts) {
         List<Product> productList = new ArrayList<Product>();

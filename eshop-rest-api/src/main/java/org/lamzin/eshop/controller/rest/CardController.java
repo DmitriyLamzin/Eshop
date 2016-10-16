@@ -30,16 +30,16 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 @RequestMapping("/rest/card")
 public class CardController {
     @Autowired
-    ProductService productService;
+    private ProductService productService;
 
     @Autowired
-    CardService cardService;
+    private CardService cardService;
 
     @Autowired
-    OrderCardDtoBuilder orderCardDtoBuilder;
+    private OrderCardDtoBuilder orderCardDtoBuilder;
 
     @Autowired
-    DtoToOrderCardBuilder dtoToOrderCardBuilder;
+    private DtoToOrderCardBuilder dtoToOrderCardBuilder;
 
     @RequestMapping(value = "/new",
             method = RequestMethod.GET)

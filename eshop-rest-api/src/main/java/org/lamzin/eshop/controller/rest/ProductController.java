@@ -25,7 +25,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    ProductDtoBuilder productDtoBuilder;
+    private ProductDtoBuilder productDtoBuilder;
 
     @Autowired
     ProductService productService;

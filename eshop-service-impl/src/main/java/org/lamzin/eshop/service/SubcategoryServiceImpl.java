@@ -20,9 +20,9 @@ import java.util.List;
 public class SubcategoryServiceImpl implements ExistenceCheckable<String>, SubcategoryService {
 
     @Autowired
-    SubCategoryDao subCategoryDao;
+    private SubCategoryDao subCategoryDao;
     @Autowired
-    CategoryDao categoryDao;
+    private CategoryDao categoryDao;
 
 
     public SubCategory save(SubCategory subCategoryToSave, String categoryId){
