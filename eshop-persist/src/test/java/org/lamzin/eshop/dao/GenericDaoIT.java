@@ -41,7 +41,14 @@ import javax.validation.ConstraintViolationException;
 })
 @DatabaseSetup("/subcategoryDataset.xml")
 @Component
-public class ITGenericDaoTest {
+public class GenericDaoIT {
+
+    private static final String ID_ENTITY_TO_SAVE = "id_entityToSave";
+    private static final String NAME_ENTITY_TO_SAVE = "name_entityToSave";
+    private static final String ID_SUB_CATEGORY_FOR_DAO_TEST = "id_subCategoryForDaoTest";
+    private static final String NAME_SUB_CATEGORY_FOR_DAO_TEST = "name_subCategoryForDaoTest";
+    private static final String ID_ENTITY_DOES_NOT_EXIST = "id_EntityDoesNotExist";
+    private static final String NAME_NEW_NAME = "name_newName";
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -67,8 +74,8 @@ public class ITGenericDaoTest {
     @Rollback(true)
     public void testSave(){
         SubCategory subCategory = new SubCategory();
-        subCategory.setSubCategoryId("id_entityToSave");
-        subCategory.setSubCategoryName("name_entityToSave");
+        subCategory.setSubCategoryId(ID_ENTITY_TO_SAVE);
+        subCategory.setSubCategoryName(NAME_ENTITY_TO_SAVE);
 
         genericDao.save(subCategory);
 
@@ -78,7 +85,7 @@ public class ITGenericDaoTest {
         SubCategory savedEntity = entityManager.find(SubCategory.class, subCategory.getSubCategoryId());
         Assert.assertNotNull(savedEntity);
 
-        Assert.assertEquals("name_entityToSave", savedEntity.getSubCategoryName());
+        Assert.assertEquals(NAME_ENTITY_TO_SAVE, savedEntity.getSubCategoryName());
     }
 
 
@@ -93,7 +100,7 @@ public class ITGenericDaoTest {
         thrown.expectMessage("may not be empty");
 
         SubCategory sameIdSubCategory = new SubCategory();
-        sameIdSubCategory.setSubCategoryId("id_subCategoryForDaoTest");
+        sameIdSubCategory.setSubCategoryId(ID_SUB_CATEGORY_FOR_DAO_TEST);
 
         genericDao.save(sameIdSubCategory);
         entityManager.flush();
@@ -105,7 +112,8 @@ public class ITGenericDaoTest {
     @Rollback(true)
     public void testRetrieve(){
 
-        Assert.assertEquals("name_subCategoryForDaoTest", genericDao.findById("id_subCategoryForDaoTest").getSubCategoryName());
+        Assert.assertEquals(NAME_SUB_CATEGORY_FOR_DAO_TEST,
+                genericDao.findById(ID_SUB_CATEGORY_FOR_DAO_TEST).getSubCategoryName());
 
     }
 
@@ -113,7 +121,7 @@ public class ITGenericDaoTest {
     @Transactional
     @Rollback(true)
     public void testRetrieveThrowsException(){
-        genericDao.findById("id_EntityDoesNotExist");
+        genericDao.findById(ID_ENTITY_DOES_NOT_EXIST);
     }
 
     @Test
@@ -123,14 +131,16 @@ public class ITGenericDaoTest {
 
 
         SubCategory updatingSubCategory  = new SubCategory();
-        updatingSubCategory.setSubCategoryId("id_subCategoryForDaoTest");
-        updatingSubCategory.setSubCategoryName("name_newName");
+        updatingSubCategory.setSubCategoryId(ID_SUB_CATEGORY_FOR_DAO_TEST);
+        updatingSubCategory.setSubCategoryName(NAME_NEW_NAME);
 
 
 
         genericDao.update(updatingSubCategory);
-        Assert.assertEquals("name_newName", entityManager.find(SubCategory.class, "id_subCategoryForDaoTest").getSubCategoryName());
-        Assert.assertNotEquals("name_subCategoryForDaoTest", entityManager.find(SubCategory.class, "id_subCategoryForDaoTest").getSubCategoryName());
+        Assert.assertEquals(NAME_NEW_NAME,
+                entityManager.find(SubCategory.class, ID_SUB_CATEGORY_FOR_DAO_TEST).getSubCategoryName());
+        Assert.assertNotEquals(ID_SUB_CATEGORY_FOR_DAO_TEST,
+                entityManager.find(SubCategory.class, ID_SUB_CATEGORY_FOR_DAO_TEST).getSubCategoryName());
     }
 
 
@@ -138,9 +148,9 @@ public class ITGenericDaoTest {
     @Transactional
     @Rollback(true)
     public void testRemove() {
-        genericDao.delete("id_subCategoryForDaoTest");
+        genericDao.delete(ID_SUB_CATEGORY_FOR_DAO_TEST);
 
-        Assert.assertNull(entityManager.find(SubCategory.class, "id_subCategoryForDaoTest"));
+        Assert.assertNull(entityManager.find(SubCategory.class, ID_SUB_CATEGORY_FOR_DAO_TEST));
     }
 
     @Test
@@ -149,7 +159,7 @@ public class ITGenericDaoTest {
     public void testCount(){
         Assert.assertEquals(1, genericDao.count().longValue());
 
-        entityManager.remove(entityManager.find(SubCategory.class, "id_subCategoryForDaoTest"));
+        entityManager.remove(entityManager.find(SubCategory.class, ID_SUB_CATEGORY_FOR_DAO_TEST));
 
         Assert.assertEquals(0, genericDao.count().longValue());
     }
@@ -158,8 +168,8 @@ public class ITGenericDaoTest {
     @Transactional
     @Rollback(true)
     public void testExists(){
-        Assert.assertTrue(genericDao.exists("id_subCategoryForDaoTest"));
-        Assert.assertFalse(genericDao.exists("id_subCategoryDoesNotPersisted"));
+        Assert.assertTrue(genericDao.exists(ID_SUB_CATEGORY_FOR_DAO_TEST));
+        Assert.assertFalse(genericDao.exists(ID_ENTITY_DOES_NOT_EXIST));
     }
 
 }

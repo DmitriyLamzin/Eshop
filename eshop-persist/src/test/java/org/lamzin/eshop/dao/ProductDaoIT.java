@@ -34,8 +34,16 @@ import java.util.ArrayList;
 })
 @DatabaseSetup("/productDataset.xml")
 @Component
-public class ITProductDaoTest {
+public class ProductDaoIT {
 
+    private static final String ID_CATEGORY_SAVED = "id_categorySaved";
+    private static final String ID_SUB_CATEGORY_FOR_DAO_TEST = "id_subCategoryForDaoTest";
+    private static final String NAME_PRODUCT_SAVED_AT_DATABASE = "name_ProductSavedAtDatabase";
+    private static final long PRODUCT_ID_IS_NOT_PERSISTED = 10;
+    private static final long PRODUCT_ID_IS_PERSISTED = 1;
+    private static final int EXPECTED_COUNT_OF_ENTITIES = 1;
+    private static final double MIN_PRICE = 0.0;
+    private static final double MAX_PRICE = 5000.0;
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -47,9 +55,9 @@ public class ITProductDaoTest {
     @Transactional
     @Rollback(true)
     public void testFindById(){
-        Product product = productDao.findById("id_categorySaved", "id_subCategoryForDaoTest", 1);
+        Product product = productDao.findById(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST, PRODUCT_ID_IS_PERSISTED);
 
-        Assert.assertEquals("name_ProductSavedAtDatabase", product.getName());
+        Assert.assertEquals(NAME_PRODUCT_SAVED_AT_DATABASE, product.getName());
 
     }
 
@@ -57,7 +65,7 @@ public class ITProductDaoTest {
     @Transactional
     @Rollback(true)
     public void testFindByIdThrowsException(){
-         productDao.findById("id_categorySaved", "id_subCategoryForDaoTest", 10);
+         productDao.findById(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST, PRODUCT_ID_IS_NOT_PERSISTED);
     }
 
     @Test
@@ -65,11 +73,11 @@ public class ITProductDaoTest {
     @Rollback(true)
     public void testDelete(){
 
-    Assert.assertNotNull(entityManager.find(Product.class, 1L));
+    Assert.assertNotNull(entityManager.find(Product.class, PRODUCT_ID_IS_PERSISTED));
 
-    productDao.delete("id_categorySaved", "id_subCategoryForDaoTest", 1);
+    productDao.delete(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST, 1);
 
-    Assert.assertNull(entityManager.find(Product.class, 1L));
+    Assert.assertNull(entityManager.find(Product.class, PRODUCT_ID_IS_PERSISTED));
 
 
     }
@@ -78,9 +86,9 @@ public class ITProductDaoTest {
     @Transactional
     @Rollback(true)
     public void testDeleteThrowsException(){
-        Assert.assertNull(entityManager.find(Product.class, 10L));
+        Assert.assertNull(entityManager.find(Product.class, PRODUCT_ID_IS_NOT_PERSISTED));
 
-        productDao.delete("id_categorySaved", "id_subCategoryForDaoTest", 10);
+        productDao.delete(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST, PRODUCT_ID_IS_NOT_PERSISTED);
     }
 
 
@@ -88,8 +96,6 @@ public class ITProductDaoTest {
     @Transactional
     @Rollback(true)
     public void testCount(){
-        Assert.assertEquals(1, productDao.count("id_subCategoryForDaoTest", 0.0, 5000.0, new ArrayList<String>()).longValue());
-        Assert.assertEquals(0, productDao.count("id_subCategoryForDaoTest", 0.0, 0.0, new ArrayList<String>()).longValue());
-
+        Assert.assertEquals(EXPECTED_COUNT_OF_ENTITIES, productDao.count(ID_SUB_CATEGORY_FOR_DAO_TEST, MIN_PRICE, MAX_PRICE, new ArrayList<String>()).longValue());
     }
 }

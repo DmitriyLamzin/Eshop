@@ -34,7 +34,11 @@ import javax.persistence.PersistenceContext;
 })
 @DatabaseSetup("/productDataset.xml")
 @Component
-public class ITSubCategoryDaoTest {
+public class SubCategoryDaoIT {
+    private static final String ID_CATEGORY_SAVED = "id_categorySaved";
+    private static final String ID_SUB_CATEGORY_FOR_DAO_TEST = "id_subCategoryForDaoTest";
+    private static final String NAME_SUB_CATEGORY_FOR_DAO_TEST = "name_subCategoryForDaoTest";
+    private static final String ID_NOT_SAVED_SUB_CATEGORY = "id_notSavedSubCategory";
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -45,9 +49,9 @@ public class ITSubCategoryDaoTest {
     @Transactional
     @Rollback(true)
     public void testFindById(){
-        SubCategory subCategory = subCategoryDao.findById("id_categorySaved", "id_subCategoryForDaoTest");
+        SubCategory subCategory = subCategoryDao.findById(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST);
 
-        Assert.assertEquals("name_subCategoryForDaoTest", subCategory.getSubCategoryName());
+        Assert.assertEquals(NAME_SUB_CATEGORY_FOR_DAO_TEST, subCategory.getSubCategoryName());
 
     }
 
@@ -55,7 +59,7 @@ public class ITSubCategoryDaoTest {
     @Transactional
     @Rollback(true)
     public void testFindByIdThrowsException(){
-        subCategoryDao.findById("id_categorySaved", "id_notSavedSubCategory");
+        subCategoryDao.findById(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST);
     }
 
     @Test
@@ -63,11 +67,11 @@ public class ITSubCategoryDaoTest {
     @Rollback(true)
     public void testDelete(){
 
-        Assert.assertNotNull(entityManager.find(SubCategory.class, "id_subCategoryForDaoTest"));
+        Assert.assertNotNull(entityManager.find(SubCategory.class, ID_SUB_CATEGORY_FOR_DAO_TEST));
 
-        subCategoryDao.delete("id_categorySaved", "id_subCategoryForDaoTest");
+        subCategoryDao.delete(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST);
 
-        Assert.assertNull(entityManager.find(SubCategory.class, "id_subCategoryForDaoTest"));
+        Assert.assertNull(entityManager.find(SubCategory.class, ID_SUB_CATEGORY_FOR_DAO_TEST));
 
 
     }
@@ -76,9 +80,9 @@ public class ITSubCategoryDaoTest {
     @Transactional
     @Rollback(true)
     public void testDeleteThrowsException(){
-        Assert.assertNull(entityManager.find(SubCategory.class, "id_notSavedSubCategory"));
+        Assert.assertNull(entityManager.find(SubCategory.class, ID_NOT_SAVED_SUB_CATEGORY));
 
-        subCategoryDao.delete("id_categorySaved", "id_notSavedSubCategory");
+        subCategoryDao.delete(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST);
     }
 
 }
