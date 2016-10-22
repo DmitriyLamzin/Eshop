@@ -263,6 +263,7 @@
                                         is true
                                     -->
 									<skipTests>${skip.integration.tests}</skipTests>
+									<skipTests>${skip.integration.tests}</skipTests>
 								</configuration>
 							</execution>
 						</executions>
