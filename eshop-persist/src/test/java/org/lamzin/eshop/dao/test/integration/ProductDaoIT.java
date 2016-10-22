@@ -1,4 +1,4 @@
-package org.lamzin.eshop.dao;
+package org.lamzin.eshop.dao.test.integration;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
@@ -75,7 +75,7 @@ public class ProductDaoIT {
 
     Assert.assertNotNull(entityManager.find(Product.class, PRODUCT_ID_IS_PERSISTED));
 
-    productDao.delete(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST, 1);
+    productDao.delete(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST, PRODUCT_ID_IS_PERSISTED);
 
     Assert.assertNull(entityManager.find(Product.class, PRODUCT_ID_IS_PERSISTED));
 

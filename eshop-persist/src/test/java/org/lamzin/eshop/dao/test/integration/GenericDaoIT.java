@@ -1,4 +1,4 @@
-package org.lamzin.eshop.dao;
+package org.lamzin.eshop.dao.test.integration;
 
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.TransactionDbUnitTestExecutionListener;
