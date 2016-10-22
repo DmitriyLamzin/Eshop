@@ -13,4 +13,16 @@
              subCategory_subCategoryId="id_subCategoryForDaoTest"
              price="1.0"
              producer="HP"/>
+
+    <product id="2"
+             name="name_ProductSavedAtDatabase_2"
+             subCategory_subCategoryId="id_subCategoryForDaoTest"
+             price="2.0"
+             producer="ASUS"/>
+
+    <product id="3"
+             name="name_ProductSavedAtDatabase_3"
+             subCategory_subCategoryId="id_subCategoryForDaoTest"
+             price="3.0"
+             producer="Lenovo"/>
 </dataset>
