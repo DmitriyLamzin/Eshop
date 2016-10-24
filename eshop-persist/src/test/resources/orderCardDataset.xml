@@ -1,0 +1,16 @@
+<dataset>
+
+    <person email="person@email"/>
+
+    <person email="otherPerson@email"/>
+
+    <ordercard id="1"
+               person_email="person@email"/>
+
+    <ordercard id="2"
+               person_email="person@email"/>
+
+    <ordercard id="3"
+               person_email="otherPerson@email"/>
+
+</dataset>
