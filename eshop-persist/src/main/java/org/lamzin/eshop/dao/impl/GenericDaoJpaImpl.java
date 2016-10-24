@@ -81,7 +81,7 @@ public class GenericDaoJpaImpl<T, Id> implements GenericDao<T, Id> {
     }
 
     public List<T> findAll(int page, int pageSize) {
-        logger.info("find all with page number " + page + "and page size " + pageSize + " is called");
+        logger.info("find all with page number " + page + " and page size " + pageSize + " is called");
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<T> criteriaQuery = builder.createQuery(type);
         Root<T> p = criteriaQuery.from(type);
