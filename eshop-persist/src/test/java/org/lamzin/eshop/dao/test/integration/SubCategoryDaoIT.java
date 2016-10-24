@@ -79,7 +79,7 @@ public class SubCategoryDaoIT {
     public void testDeleteThrowsException(){
         Assert.assertNull(entityManager.find(SubCategory.class, ID_NOT_SAVED_SUB_CATEGORY));
 
-        subCategoryDao.delete(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST);
+        subCategoryDao.delete(ID_CATEGORY_SAVED, ID_NOT_SAVED_SUB_CATEGORY);
     }
 
 }
