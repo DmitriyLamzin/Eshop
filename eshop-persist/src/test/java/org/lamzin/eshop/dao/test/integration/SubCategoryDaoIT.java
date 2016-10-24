@@ -22,9 +22,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
-/**
- * Created by Dmitriy on 23.06.2016.
- */
 @ContextConfiguration(locations = "classpath:applicationContext-persist-test.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({
@@ -59,7 +56,7 @@ public class SubCategoryDaoIT {
     @Transactional
     @Rollback(true)
     public void testFindByIdThrowsException(){
-        subCategoryDao.findById(ID_CATEGORY_SAVED, ID_SUB_CATEGORY_FOR_DAO_TEST);
+        subCategoryDao.findById(ID_CATEGORY_SAVED, ID_NOT_SAVED_SUB_CATEGORY);
     }
 
     @Test
