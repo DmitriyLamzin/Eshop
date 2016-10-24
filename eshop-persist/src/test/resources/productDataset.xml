@@ -11,7 +11,7 @@
     <product id="1"
              name="name_ProductSavedAtDatabase"
              subCategory_subCategoryId="id_subCategoryForDaoTest"
-             price="1.0"
+             price="3.0"
              producer="HP"/>
 
     <product id="2"
@@ -23,6 +23,6 @@
     <product id="3"
              name="name_ProductSavedAtDatabase_3"
              subCategory_subCategoryId="id_subCategoryForDaoTest"
-             price="3.0"
+             price="1.0"
              producer="Lenovo"/>
 </dataset>
