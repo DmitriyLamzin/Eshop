@@ -1,4 +1,13 @@
 <dataset>
     <subcategory subCategoryId="id_subCategoryForDaoTest"
                  subCategoryName="name_subCategoryForDaoTest" />
+
+    <subcategory subCategoryId="id_subCategoryForDaoTest1"
+                 subCategoryName="name_subCategoryForDaoTest1" />
+
+    <subcategory subCategoryId="id_subCategoryForDaoTest2"
+                 subCategoryName="name_subCategoryForDaoTest2" />
+
+    <subcategory subCategoryId="id_subCategoryForDaoTest3"
+                 subCategoryName="name_subCategoryForDaoTest3" />
 </dataset>
